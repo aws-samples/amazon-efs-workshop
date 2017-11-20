@@ -85,7 +85,7 @@ The first step involves the buildout and configuration of the Virtual Private Cl
 
 This script takes approximately 8-10 minutes to run.  During this time, please follow the instructions below to download the Magento binary, which will be used at a later portion of this lab.  
 
-#####Downloading Magento#####
+#### Downloading Magento ####
 
 **Step 1:** From your web browser, navigate to the [Magento download page](https://magento.com/tech-resources/download) 
 
@@ -139,7 +139,7 @@ Continue with the deployment by following the steps below.
 
 This script takes approximately 15 minutes to run.  During this time, please follow the instructions below to upload the Magento binary into S3, which will be required for the Magento installation.  
 
-####Hosting Magento in S3####
+#### Hosting Magento in S3 ####
 
 The Magento binary will need to be made available to the CloudFormation scripts.  This is accomplished by hosting the file an S3 bucket, with permissions allowing CloudFormation to access both the bucket and file.
 
