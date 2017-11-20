@@ -69,16 +69,16 @@ The first step involves the buildout and configuration of the Virtual Private Cl
 **Parameters:** 
 
 **Availability Zone configuration:** 
-<hr>
+
 * Select 2 availability zones from the list (e.g. *us-east-1a, us-east-1b*)
 * Verify *Number of Availability Zones* is set to **2**
 
 **Network configuration:** 
-<hr>
+
 * Use all default values
 
 **Amazon EC2 Configuraiton:** 
-<hr>
+
 * Select your AWS key pair 
 
 **Step 6:** Select **Next** to continue to *Options*, **Next** to *Reveiw*, and finally **Create** to launch the template
