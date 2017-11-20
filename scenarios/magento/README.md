@@ -85,7 +85,7 @@ The first step involves the buildout and configuration of the Virtual Private Cl
 
 This script takes approximately 8-10 minutes to run.  During this time, please follow the instructions below to download the Magento binary, which will be used at a later portion of this lab.  
 
-####Downloading Magento####
+#####Downloading Magento#####
 
 **Step 1:** From your web browser, navigate to the [Magento download page](https://magento.com/tech-resources/download) 
 
