@@ -1,0 +1,61 @@
+{
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Description": "Magento 2.1 Security Groups template",
+    "Parameters": {
+        "VPC": {
+            "AllowedPattern": "vpc-[0-9a-z]{8}",
+            "Default": "vpc-xxxxxxxx",
+            "Description": "VPC-ID of your existing Virtual Private Cloud (VPC) where you want to depoy RDS.",
+            "Type": "AWS::EC2::VPC::Id"
+        }
+    },
+    "Resources": {
+        "SecurityGroup": {
+            "Type": "AWS::EC2::SecurityGroup",
+            "Properties": {
+                "GroupDescription": "Security group allowing SSH and HTTP/HTTPS access",
+                "VpcId": {
+                    "Ref": "VPC"
+                },
+                "SecurityGroupIngress": [{
+                    "IpProtocol": "tcp",
+                    "FromPort": "22",
+                    "ToPort": "22",
+                    "CidrIp": "0.0.0.0/0"
+                }, {
+                    "IpProtocol": "tcp",
+                    "FromPort": "80",
+                    "ToPort": "80",
+                    "CidrIp": "0.0.0.0/0"
+                }, {
+                    "IpProtocol": "tcp",
+                    "FromPort": "443",
+                    "ToPort": "443",
+                    "CidrIp": "0.0.0.0/0"
+                }]
+            }
+        },
+        "SecurityGroupIngress": {
+            "Type": "AWS::EC2::SecurityGroupIngress",
+            "Properties": {
+                "GroupId": {
+                    "Ref": "SecurityGroup"
+                },
+                "IpProtocol": "-1",
+                "FromPort": "-1",
+                "ToPort": "-1",
+                "SourceSecurityGroupId": {
+                    "Ref": "SecurityGroup"
+                }
+            }
+        }
+    },
+    "Outputs": {
+        "MySQLRDSSecurityGroup": {
+            "Description": "EFS Security Group",
+            "Value": {
+                "Ref": "SecurityGroup"
+            }
+        }
+    }
+}
