@@ -63,22 +63,20 @@ The first step involves the buildout and configuration of the Virtual Private Cl
 **Step 5:** Enter the following CloudFormation parameters:
 
 **Specify Details:** 
-
+***
 * Enter a stack name at the top (e.g. *magento-vpc*)
 
-**Parameters:** 
-
 **Availability Zone configuration:** 
-
+***
 * Select 2 availability zones from the list (e.g. *us-east-1a, us-east-1b*)
 * Verify *Number of Availability Zones* is set to **2**
 
 **Network configuration:** 
-
+***
 * Use all default values
 
 **Amazon EC2 Configuraiton:** 
-
+***
 * Select your AWS key pair 
 
 **Step 6:** Select **Next** to continue to *Options*, **Next** to *Reveiw*, and finally **Create** to launch the template
@@ -120,11 +118,11 @@ Continue with the deployment by following the steps below.
 **Step 5:** Enter the following CloudFormation parameters:
 
 **Specify Details:** 
-
+***
 * **Stack name:** Enter a stack name at the top (e.g. *magento-deps*)
 
 **Network configuration:** 
-
+***
 * **VPC ID:** Select the ID of the VPC created using the VPC template above
 * **VPC CIDR:** Enter *10.0.0.0/16*
 * **Private Subnet 1 ID:** Select the subnet labeled *subnet-[xxx] (10.0.0.0/19) Private Subnet 1A* where [xxx] is a random set of alphanumeric characters
@@ -243,11 +241,11 @@ You should now have values for the following resources in your notepad:
 **Step 6:** Enter the following CloudFormation parameters:
 
 **Specify Details:** 
-
+***
 * **Stack name:** Enter a stack name at the top (e.g. *magento-webserver*)
 
 **Parameters:** 
-
+***
 * **EFSSecurityGroup:** Paste the name of the EFSSecurityGroup saved in the local notepad file and select the Security Group returned via the console
 * **ElastiCacheEndpoint:** Enter the name of the ElastiCacheEndpoint saved in the local notepad file
 * **ElasticLoadBalancerSubnets:** Select the 2 subnets labeled *subnet-xxxxx (10.0.128.0/20) (Public subnet 1)* and *subnet-xxxxx (10.0.144.0/20) (Public subnet 2)*
