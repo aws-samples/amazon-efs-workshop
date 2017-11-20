@@ -296,6 +296,3 @@ We're going to remove resources in the reverse order from which they were create
 
 **Step 6:** Repeat this step for the *magento-vpc* stack created during *Step 1* of this lab.
 
-### Troubleshooting
-
-**TBD:** Consider adding steps to resolve maintenance.flag issue that may appear during startup of Magento server.
