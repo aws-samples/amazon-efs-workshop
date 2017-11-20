@@ -72,16 +72,16 @@ The first step involves the buildout and configuration of the Virtual Private Cl
 **Parameters:** 
 
 **Availability Zone configuration:** 
-<hr>
+***
 * Select 2 availability zones from the list (e.g. *us-east-1a, us-east-1b*)
 * Verify *Number of Availability Zones* is set to **2**
 
 **Network configuration:** 
-<hr>
+***
 * Use all default values
 
 **Amazon EC2 Configuraiton:** 
-<hr>
+***
 * Select your AWS key pair 
 
 **Step 6:** Select **Next** to continue to *Options*, **Next** to *Reveiw*, and finally **Create** to launch the template
@@ -109,11 +109,11 @@ Continue with the deployment by following the steps below.
 **Step 5:** Enter the following CloudFormation parameters:
 
 **Specify Details:** 
-<hr>
+***
 * **Stack name:** Enter a stack name at the top (e.g. *jira-sg*)
 
 **Parameters:** 
-<hr>
+***
 * **VPC:** Select the ID of the VPC created using the VPC template above
 
 **Step 6:** Select **Next** to continue to *Options* and **Next** to *Reveiw*
@@ -167,19 +167,19 @@ Navigate back to the CloudFormation section of the AWS management console.
 **Step 4:** Enter the following CloudFormation parameters:
 
 **Specify Details:** 
-<hr>
+***
 * **Stack name:** Enter a stack name at the top (e.g. *jira-dc*)
 
 **JIRA setup:** 
-<hr>
+***
 * **JIRA Product:** Select *Service Desk*
 
 **Cluster nodes:** 
-<hr>
+***
 * Use default values
 
 **Database:** 
-<hr>
+***
 * **Database instance class:** Keep the default value of *db.m4.xlarge*
 * **Master password:** Enter an alphanumeric string at least 8 characters long
 * **JIRA database password:** Enter an alphanumeric string at least 8 characters long
@@ -189,11 +189,11 @@ Navigate back to the CloudFormation section of the AWS management console.
 * **DBMultiAZ:** Keep the default value of *true*
 
 **FileSystem:** 
-<hr>
+***
 * **EFS File System:** Enter the EFS file system ID from *Step 3: Configuring EFS* (*fs-xxxxx*)
 
 **Networking:** 
-<hr>
+***
 * **VPC:** Select the ID of the VPC created in *Step 1: Building the Virtual Private Cloud*
 * **Jira security group:** Enter the name the security group created in *Step 2: Deploying Jira security groups*.  The console will should return a reference to a group labeled, *sg-xxxxx jira-sg-SecurityGroup-XXXXX*.
 * **External subnets:** Select the following subnets: *subnet-[xxx] (10.0.128.0/20) Public Subnet 1* and *subnet-[xxx] (10.0.144.0/20) Public Subnet 2* 
@@ -204,7 +204,7 @@ Navigate back to the CloudFormation section of the AWS management console.
 * **SSL Certificate name:** Keep empty
 
 **Advanced (Optional):** 
-<hr>
+***
 * Use default values
 
 **Step 5:** Select **Next** to continue to *Options*, **Next** to *Reveiw*, and finally **Create** to launch the template
