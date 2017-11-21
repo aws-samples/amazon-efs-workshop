@@ -10,7 +10,7 @@ This lab provides step by step instructions for the user to install and configur
 
 The resulting Magento architecture looks as follows:
 
-<img src="https://s3.amazonaws.com/lippe-reinvent/images/magento-architecture.png" width="450"/>
+<img src="https://s3.amazonaws.com/amazon-elastic-file-system/workshop/magento/images/magento-architecture.png" width="450"/>
 
 The templates build a single VPC with 2 private subnets, used by the Magento instances along with its required resources.  Public subnets are deployed along with a NAT gateway, allowing instances in the private subnet to access the public internet for patching purposes.  The Bastion hosts will not be created in this lab.
 
@@ -284,7 +284,7 @@ We are now ready to verify that the Magento content server is up and running.
 
 **Step 2:** Click the URL to launch a browser tab for the Magento content server.  You should see the following screenshot:
 
-<img src="https://s3.amazonaws.com/lippe-reinvent/images/magento-screenshot.png" width="450"/>
+<img src="https://s3.amazonaws.com/amazon-elastic-file-system/workshop/magento/images/magento-screenshot.png" width="450"/>
 
 ### Step 7: Cleaning up
 
