@@ -50,9 +50,11 @@ If using an existing account without a key pair, please refer to [Creating a Key
 
 ### Step 1: Building the Virtual Private Cloud
 
-The first step involves the buildout and configuration of the Virtual Private Cloud (VPC) that will be used by Magento.  A VPC is a secure virtual newtork dedicated to your AWS account.  It is logically isolated from other newtorks, providing the user with a set of security controls that can be used to dictate ingress and egress network traffic.  This network will be the landing zone used by the Magento deployment.
+The first step involves the buildout and configuration of the Virtual Private Cloud (VPC) that will be used by Magento.  A VPC is a secure virtual newtork dedicated to your AWS account.  It is logically isolated from other newtorks, providing the user with a set of security controls that can be used to control ingress and egress network traffic.  
 
-**Step 1:** Download the VPC CloudFormation script from this Git repo to a location on your desktop
+This network will be the landing zone used by the Magento deployment.
+
+**Step 1:** Download the [VPC CloudFormation template](https://github.com/aws-samples/amazon-efs-workshop/blob/master/scenarios/magento/magento-vpc.template) from Git to a location on your desktop
 
 **Step 2:** Sign in to the [AWS Management Console](https://console.aws.amazon.com/console/home) and navigate to the CloudFormation service page
 
@@ -107,7 +109,7 @@ During the execution of this template you'll notice 3 additional stacks, showing
 
 Continue with the deployment by following the steps below.
 
-**Step 1:** Download the Magento dependencies script from this Git repo to a location on your desktop
+**Step 1:** Download the [Magento dependencies CloudFormation template](https://github.com/aws-samples/amazon-efs-workshop/blob/master/scenarios/magento/magento-deps.template) from Git to a location on your desktop
 
 **Step 2:** Sign in to the [AWS Management Console](https://console.aws.amazon.com/console/home) and navigate to the CloudFormation service page
 
@@ -139,7 +141,7 @@ This script takes approximately 15 minutes to run.  During this time, please fol
 
 #### Hosting Magento in S3 ####
 
-The Magento binary will need to be made available to the CloudFormation scripts.  This is accomplished by hosting the file an S3 bucket, with permissions allowing CloudFormation to access both the bucket and file.
+The Magento binary will need to be made available to the CloudFormation scripts.  This is accomplished by hosting the file an S3 bucket, with permissions allowing us to access both the bucket and file.
 
 **Step 1:** Sign in to the [AWS Management Console](https://console.aws.amazon.com/console/home) and navigate to the S3 service page
 
@@ -147,11 +149,11 @@ The Magento binary will need to be made available to the CloudFormation scripts.
 
 **Step 2:** Select *Create bucket* and enter a bucket name and the AWS region that will host the Magento resources and select **Next**
 
-* Note: The bucket name must be unique to all buckets in the region, across all accounts.  Consider choosing a bucket name prefix that uses your corporate username, followed by a series of random numbers (e.g. *username-234231*)
+* **Note:** The bucket name must be unique to all buckets in the region, across all accounts.  Consider choosing a bucket name prefix that uses your corporate username, followed by a series of random numbers (e.g. *username-234231*)
 
 **Step 3:** From the *Set properties* page, select **Next**
 
-**Step 4:** From the *Set permissions* page, select **Next** 
+**Step 4:** From the *Set permissions* page, select **Next**
 
 **Step 5:** From the *Review* page, select **Create bucket** 
 
