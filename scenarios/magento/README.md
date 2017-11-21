@@ -2,7 +2,7 @@
 
 **EFS ReInvent Lab #3:** Building the Magento eCommerce platform using EFS.
 
-Approx. time to complete: **50 minutes**
+Approx. time to complete: **1 hour**
 
 ## Getting Started
 
@@ -145,7 +145,7 @@ The Magento binary will need to be made available to the CloudFormation scripts.
 
 **Step 1:** Sign in to the [AWS Management Console](https://console.aws.amazon.com/console/home) and navigate to the S3 service page
 
-*If using an existing S3 bucket to host the Magento binary, ensure that the user account used to launch the CloudFormation scripts has read access and skip to step 6*
+*If using an existing S3 bucket to host the Magento binary, ensure that the bucket is configured to allow public read access and skip to step 6*
 
 **Step 2:** Select *Create bucket* and enter a bucket name and the AWS region that will host the Magento resources and select **Next**
 
@@ -153,7 +153,7 @@ The Magento binary will need to be made available to the CloudFormation scripts.
 
 **Step 3:** From the *Set properties* page, select **Next**
 
-**Step 4:** From the *Set permissions* page, select **Next**
+**Step 4:** From the *Set permissions* page, select **Next** 
 
 **Step 5:** From the *Review* page, select **Create bucket** 
 
@@ -161,11 +161,13 @@ The Magento binary will need to be made available to the CloudFormation scripts.
 
 **Step 7:** Select the **Upload** button at the top of the window, select **Add files**, choose the *Magento binary* downloaded from the steps above, and select **Next**
 
-**Step 8:** From the *Set permissions* page, select **Next** 
+**Step 8:** From the *Set permissions* page, select the drop down under **Manage public permissions** and choose *Grant public read access to this object(s)* then select **Next**
 
 **Step 9:** From the *Set properties* page, select **Next** 
 
 **Step 10:** From the *Review* page, select **Upload** 
+
+**Step 11:** Once the Magento source file finishes uploading, click on the object to access its properties and mark down the **Link** address in your a notepad file on your laptop (*https://s3.amazonaws.com/.../Magento-CE-2.1.10-2017-11-04-12-51-18.tar.gz*)
 
 ### Step 3: Configuring EFS
 
@@ -175,13 +177,13 @@ Navigate back to the CloudFormation section of the AWS management console and wa
 
 **Note:** To expedite this lab, you can choose to continue to the EFS configuration portion below, providing the Security Group nested script has completed successfully.  After completing the EFS steps below, stop until the Magento dependency scripts finish.
 
-To allow our Magento content server to access the EFS share deployed in this portion of the lab, the security groups attached to both the EFS share and Magento server must have the necesssary NFS port opened.  These security groups have already been created in **Step 2: Deploying magento dependencies**.  As we will need the EFS security group, follow the steps below to retrieve the necessary EFS security group.
+To allow our Magento content server to access the EFS share deployed in this portion of the lab, the security groups attached to both the EFS share and Magento server must have the necesssary ports opened.  These security groups have already been created in **Step 2: Deploying magento dependencies**.  As we will need the EFS security group, follow the steps below to retrieve the necessary EFS security group.
 
 **Step 1:** Sign in to the [AWS Management Console](https://console.aws.amazon.com/console/home) and navigate to the CloudFormation service page
 
 **Step 2:** Select the nested stack deployed above, labeled *magento-deps-SecurityGroupStack-xxx* and select the *Outputs* tab
 
-**Step 3:** Mark down the names of the following Security Groups in a text file on your desktop.  The Security Groups should all have the format *sg-xxxxx*:
+**Step 3:** Mark down the names of the following Security Groups in a text file on your desktop.  We'll need these later.  The Security Groups should all have the format *sg-xxxxx*:
 
 * ELBSecurityGroup
 * EFSSecurityGroup
@@ -211,7 +213,9 @@ Next we need to assign security groups to the mount points in each Availability 
 
 **Step 7:** Review the configured options and select *Create File System*
 
-**Step 8:** The EFS file system should now be successfully created.  Mark down the name of the EFS share in your notepad file, which will be named *fs-xxxxxx* and shown in the **File system ID** column.  If the file system was not created, please notify a lab proctor before continuing with the lab exercise.
+**Step 8:** The EFS file system will begin deployment.  Navigate to the *Mount targes* section of the file system details and verify the *Life cycle state* is *Available* before you continue.
+
+Mark down the name of the EFS share in your notepad file, which will be named *fs-xxxxxx* and shown in the **File system ID** column.  If the file system was not created, please notify a lab proctor before continuing with the lab exercise.
 
 ### Step 4: Deploying Magento
 
@@ -221,9 +225,9 @@ Navigate back to the CloudFormation section of the AWS management console.  Veri
 
 The Magento deployment requires the names of our ElastiCache and RDS endpoints, which were created in **Step 2: Deploying magento dependencies**.  
 
-**Step 1:** Download the Magento webserver script from this Git repo to a location on your desktop
+**Step 1:** Download the [Magento webserver CloudFormation template](https://github.com/aws-samples/amazon-efs-workshop/blob/master/scenarios/magento/magento-ws.template) from Git to a location on your desktop
 
-**Step 2:** From the CloudFromation console, select the nested stack labeled *magento-deps-ElastiCache-xxx*.  Select the *Outputs* tab and mark down the value of the *ElastiCacheEndpoint*.  
+**Step 2:** From the CloudFromation console, select the nested stack labeled *magento-deps-ElastiCache-xxx*.  Select the *Outputs* tab and mark down the value of the *ElastiCacheEndpoint* in your notepad.  
 
 **Step 3:** Select the nested stack labeled *magento-deps-RDSMySQL-xxx*.  Select the *Outputs* tab and mark down the value of the *MySQLEndPointAddress*.  Note that this should be second output, directly below *MySQLEndpoints*
 
@@ -260,7 +264,7 @@ You should now have values for the following resources in your notepad:
 * **VPCID:** Select the name of the VPC created above (should be named *vpc-xxxxx - magento-vpc*)
 * **WebServerInstanceType:** Keep the default *m4.large*
 * **WebServerSecurityGroup:** Paste the name of the WebServerSecurityGroup saved in the local notepad file and select the Security Group returned via the console
-* **DBName:** Select the 2 private subnets labeled *subnet-xxxxx (10.0.0.0/19) (Private subnet 1A)* and *subnet-xxxxx (10.0.32.0/19) (Private subnet 2A)*
+* **WebServerSubnets:** Select the 2 private subnets labeled *subnet-xxxxx (10.0.0.0/19) (Private subnet 1A)* and *subnet-xxxxx (10.0.32.0/19) (Private subnet 2A)*
 
 **Step 7:** Select **Next** to continue to *Options*.
 
