@@ -1,6 +1,6 @@
 # Description
 
-**EFS ReInvent Lab #4:** Building an JIRA environment using EFS.
+**EFS ReInvent Lab #1:** Building a JIRA environment using EFS.
 
 Approx. time to complete: **45 minutes**
 
@@ -17,7 +17,7 @@ During this lab, we will walk the user through a manual deployment of the backin
 
 Resulting Jira architecture:
 
-<img src="https://s3.amazonaws.com/lippe-reinvent/images/jira-architecture.png" width="450"/>
+<img src="https://s3.amazonaws.com/amazon-elastic-file-system/workshop/atlassian-jira/images/jira-architecture.png" width="450"/>
 
 The templates build a single VPC with 2 private subnets, used by the Jira instances along with its required resources.  Public subnets are deployed along with a NAT gateway, allowing instances in the private subnet to access the public internet for patching purposes. 
 
@@ -53,9 +53,11 @@ If using an existing account without a key pair, please refer to [Creating a Key
 
 ### Step 1: Building the Virtual Private Cloud
 
-The first step involves the buildout and configuration of the Virtual Private Cloud (VPC) that will be used by Jira.  A VPC is a secure virtual newtork dedicated to your AWS account.  It is logically isolated from other newtorks, providing the user with a set of security controls that can be used to dictate ingress and egress network traffic.  This network will be the landing zone used by the Magento deployment.
+The first step involves the buildout and configuration of the Virtual Private Cloud (VPC) that will be used by Jira.  A VPC is a secure virtual newtork dedicated to your AWS account.  It is logically isolated from other newtorks, providing the user with a set of security controls that can be used to control ingress and egress network traffic.  
 
-**Step 1:** Download the VPC CloudFormation script from this Git repo to a location on your desktop
+This network will be the landing zone used by the Jira deployment.
+
+**Step 1:** Download the [VPC CloudFormation template](https://github.com/aws-samples/amazon-efs-workshop/blob/master/scenarios/atlassian-jira/jira-vpc.template) from Git to a location on your desktop
 
 **Step 2:** Sign in to the [AWS Management Console](https://console.aws.amazon.com/console/home) and navigate to the CloudFormation service page
 
@@ -98,7 +100,7 @@ Next we're going to deploy the security group that the Jira resources and EFS fi
 
 Continue with the deployment by following the steps below.
 
-**Step 1:** Download the Jira security group script from this Git repo to a location on your desktop
+**Step 1:** Download the [Jira security group template](https://github.com/aws-samples/amazon-efs-workshop/blob/master/scenarios/atlassian-jira/jira-sg.template) from Git to a location on your desktop
 
 **Step 2:** Sign in to the [AWS Management Console](https://console.aws.amazon.com/console/home) and navigate to the CloudFormation service page
 
@@ -120,7 +122,7 @@ Continue with the deployment by following the steps below.
 
 ### Step 3: Configuring EFS
 
-Continue with the steps below once the Jira security group script launched above has completed.  
+Continue with the steps below once the Jira security group template launched above has completed.  
 
 To allow our Jira resources to access the EFS share deployed in this portion of the lab, the security groups attached to both the EFS share and Jira resources must have the necesssary ports opened.
 
@@ -158,7 +160,7 @@ Mark down the name of the EFS share in your notepad file, which will be named *f
 
 Navigate back to the CloudFormation section of the AWS management console.
 
-**Step 1:** Download the Jira deployment script from this Git repo to a location on your desktop
+**Step 1:** Download the [Jira deployment template](https://github.com/aws-samples/amazon-efs-workshop/blob/master/scenarios/atlassian-jira/jira-dc.template) from Git to a location on your desktop
 
 **Step 2:** Select the **Create Stack** button and under *Choose a template* select **Upload a template to Amazon S3**
 
@@ -223,7 +225,7 @@ We are now ready to verify that the Magento content server is up and running.
 
 **Step 3:** Click the JIRAURL to launch a browser tab for the Jira serer.  You should see the following screenshot:
 
-<img src="https://s3.amazonaws.com/lippe-reinvent/images/jira-screenshot.png" width="450"/>
+<img src="https://s3.amazonaws.com/amazon-elastic-file-system/workshop/atlassian-jira/images/jira-screenshot.png" width="450"/>
 
 ### Step 7: Cleaning up
 
