@@ -242,7 +242,7 @@ sudo bash -c "cat >/mnt/efs/nginx/index.html" <<'EOF'
 <html>
     <body>
         <h1>Hello re:Invent!</h1>
-        <p>You are using an Amazon EFS file system for persistent container storage.</p>
+        <p>Your containers are using an Amazon EFS file system for persistent container storage.</p>
     </body>
 </html>
 EOF
