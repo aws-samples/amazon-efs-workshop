@@ -36,25 +36,25 @@ This workshop is divided into two sections. The first section is the Amazon EFS 
 
 ### Section 1: Tutorial
 
-Click on the ![](/images/deploy_to_aws.png) link below to go to the Amazon EFS tutorials. Once you've finished all tutorials move on to **Section 2: Scenarios**.
+Click on the ![](/images/efs_tutorial.png) link below to go to the Amazon EFS tutorials. Once you've finished all tutorials move on to **Section 2: Scenarios**.
 
 | Tutorial | Go to |
 | --- | --- 
-| Amazon EFS | [![](/images/efs-tutorial-button.png)](/tutorial) |
+| Amazon EFS | [![](/images/efs_tutorial.png)](/tutorial) |
 
 
 
 ### Section 2: Scenarios
 
-Click on the ![](/images/deploy_to_aws.png) link below to go to the specific scenario. Once you've finished one scenario, move on to another.
+Click on the ![](/images/efs_scenario.png) link below to go to the specific scenario. Once you've finished one scenario, move on to another.
 
 | Scenario | Go to |
 | --- | --- 
-| WordPress | [![](/images/deploy_to_aws.png)](/scenarios/wordpress) |
-| Drupal | [![](/images/deploy_to_aws.png)](/scenarios/drupal) |
-| Magento | [![](/images/deploy_to_aws.png)](/scenarios/magento) |
-| Atlassian Jira | [![](/images/deploy_to_aws.png)](/scenarios/atlassian-jira) |
-| Docker | [![](/images/deploy_to_aws.png)](/docker) |
+| WordPress | [![](/images/efs_scenario.png)](/scenarios/wordpress) |
+| Drupal | [![](/images/efs_scenario.png)](/scenarios/drupal) |
+| Magento | [![](/images/efs_scenario.png)](/scenarios/magento) |
+| Atlassian Jira | [![](/images/efs_scenario.png)](/scenarios/atlassian-jira) |
+| Docker | [![](/images/efs_scenario.png)](/docker) |
 
 
 
