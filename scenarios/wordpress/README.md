@@ -47,7 +47,7 @@ WARNING!! This workshop environment will exceed your free-usage tier. You will i
 - Use the default NAT instance size
 
 ---
-![](https://s3.amazonaws.com/aws-us-east-1/tutorial/create-efs-resources/efs-create-vpc.png)
+![](/images/aws_wordpress_parameters.png)
 
 ---
 
