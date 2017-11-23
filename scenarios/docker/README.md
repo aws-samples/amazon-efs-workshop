@@ -213,26 +213,24 @@ page](https://us-east-2.console.aws.amazon.com/cloudformation/home?region=us-eas
 ![](media/0980c414222be542d953197d241718bb.png)
 
 8.  SSH to the instance.
-
-    1.  Be sure to substitute the path to your PEM file (the one that was
+    1. Be sure to substitute the path to your PEM file (the one that was
         downloaded earlier when you created your keypair). Preface the hostname
         with **ec2-user\@.** For Mac and Linux users, the command should look
         similar to this:
-
-```   
-ssh -i us-east-2-kp.pem ec2-user\@ec2-13-58-69-171.us-east-2.compute.amazonaws.com
-```
-
-   2. For Windows users, follow the instructions for your preferred SSH app. If you don’t have a SSH app, [see this
+    ```   
+    ssh -i us-east-2-kp.pem ec2-user\@ec2-13-58-69-171.us-east-2.compute.amazonaws.com
+    ```
+    2. For Windows users, follow the instructions for your preferred SSH app. If you don’t have a SSH app, [see this
     page](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/putty.html).
 
-9.  Once connected to an instance, we will download a *index.php* file to the
+
+9. Once connected to an instance, we will download a *index.php* file to the
     */mnt/efs/php* directory that Apache can serve. Copy and paste the following lines into your SSH session.
-```
+    ```
     cd /mnt/efs/php
     sudo curl -O https://s3.amazonaws.com/amazon-elastic-file-system/workshop/docker/index.php
     sudo curl -O https://s3.amazonaws.com/amazon-elastic-file-system/workshop/docker/master.css
-```
+    ```
 
 10.  Navigate to the load balancer page again and you should see something like
     this.
@@ -242,7 +240,7 @@ ssh -i us-east-2-kp.pem ec2-user\@ec2-13-58-69-171.us-east-2.compute.amazonaws.c
 By manually refreshing the page or setting it to automatically refresh, you can
 observe that the instance-id and container-id will change. This demonstrates
 that requests are being served by multiple containers running on different
-instances. But they are all sharing a single file system, backed by EFS.
+instances, all sharing a single EFS file system.
 
 Conclusion
 ==========
