@@ -30,24 +30,23 @@ WARNING!! This tutorial environment will exceed your free-usage tier. You will i
 
 ### The Workshop
 
-This workshop is divided into two sections. The first section is the Amazon EFS tutorial and designed to help you better understand the performance characteristics of Amazon Elastic File System (Amazon EFS) and how parallelism, I/O size, and Amazon EC2 instance types have a profound effect on file system performance. The second section is the scenarios section and is designed to help you build workloads using Wordpress, Drupal, Magento, Atlassian Jira, and Gitlab leveraging Amazon EFS.
+This workshop is divided into two sections. The first section is the Amazon EFS tutorial and designed to help you better understand the performance characteristics of Amazon Elastic File System (Amazon EFS) and how parallelism, I/O size, and Amazon EC2 instance types have a profound effect on file system performance. The second section is the scenarios section and is designed to help you build workloads using Wordpress, Drupal, Magento, Atlassian Jira, and Docker leveraging Amazon EFS.
 
 
 
 ### Section 1: Tutorial
 
-Click the logo link below to go to the Amazon EFS tutorials. Once you've finished all tutorials move on to Section 2: Scenarios.
-
+Click on the ![](/images/deploy_to_aws.png) link below to go to the Amazon EFS tutorials. Once you've finished all tutorials move on to **Section 2: Scenarios**.
 
 | Tutorial | Go to |
 | --- | --- 
-| Amazon EFS | [![](/images/deploy_to_aws.png)](/tutorial) |
+| Amazon EFS | [![](/images/efs-tutorial-button.png)](/tutorial) |
 
 
 
 ### Section 2: Scenarios
 
-Click the logo link below to go to the specific scenario. Once you've finished one scenario, move on to another.
+Click on the ![](/images/deploy_to_aws.png) link below to go to the specific scenario. Once you've finished one scenario, move on to another.
 
 | Scenario | Go to |
 | --- | --- 
