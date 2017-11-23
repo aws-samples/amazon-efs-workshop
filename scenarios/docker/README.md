@@ -223,11 +223,11 @@ page](https://us-east-2.console.aws.amazon.com/cloudformation/home?region=us-eas
 ssh -i us-east-2-kp.pem ec2-user\@ec2-13-58-69-171.us-east-2.compute.amazonaws.com
 ```
 
-    2. For Windows users, follow the instructions for your preferred SSH app. If you don’t have a SSH app, [see this
+   2. For Windows users, follow the instructions for your preferred SSH app. If you don’t have a SSH app, [see this
     page](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/putty.html).
 
 9.  Once connected to an instance, we will download a *index.php* file to the
-    */mnt/efs/php* directory that Apache can serve.
+    */mnt/efs/php* directory that Apache can serve. Copy and paste the following lines into your SSH session.
 ```
     cd /mnt/efs/php
     sudo curl -O https://s3.amazonaws.com/amazon-elastic-file-system/workshop/docker/index.php
