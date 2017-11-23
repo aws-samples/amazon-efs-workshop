@@ -53,7 +53,7 @@ Click the logo link below to go to the specific scenario. Once you've finished o
 | Drupal | [![cloudformation-launch-stack](https://s3.amazonaws.com/aws-us-east-1/tutorial/deploy_to_aws_20171004_v2.png)](https://github.com/aws-samples/amazon-efs-workshop/tree/master/scenarios/drupal) |
 | Magento | [![cloudformation-launch-stack](https://s3.amazonaws.com/aws-us-east-1/tutorial/deploy_to_aws_20171004_v2.png)](https://github.com/aws-samples/amazon-efs-workshop/tree/master/scenarios/magento) |
 | Atlassian Jira | [![cloudformation-launch-stack](https://s3.amazonaws.com/aws-us-east-1/tutorial/deploy_to_aws_20171004_v2.png)](https://github.com/aws-samples/amazon-efs-workshop/tree/master/scenarios/atlassian-jira) |
-| Gitlab | [![cloudformation-launch-stack](https://s3.amazonaws.com/aws-us-east-1/tutorial/deploy_to_aws_20171004_v2.png)](https://github.com/aws-samples/amazon-efs-workshop/tree/master/scenarios/gitlab) |
+| Docker | [![cloudformation-launch-stack](https://s3.amazonaws.com/aws-us-east-1/tutorial/deploy_to_aws_20171004_v2.png)](https://github.com/aws-samples/amazon-efs-workshop/tree/master/scenarios/docker) |
 
 
 
