@@ -41,7 +41,7 @@ Click the logo link below to go to the Amazon EFS tutorials. Once you've finishe
 
 | Tutorial | Go to |
 | --- | --- 
-| Amazon EFS | [![cloudformation-launch-stack](https://s3.amazonaws.com/aws-us-east-1/tutorial/deploy_to_aws_20171004_v2.png)](https://github.com/aws-samples/amazon-efs-workshop/tree/master/tutorial) |
+| Amazon EFS | [![](https://s3.amazonaws.com/aws-us-east-1/tutorial/deploy_to_aws_20171004_v2.png)](https://github.com/aws-samples/amazon-efs-workshop/tree/master/tutorial) |
 
 
 
@@ -51,11 +51,11 @@ Click the logo link below to go to the specific scenario. Once you've finished o
 
 | Scenario | Go to |
 | --- | --- 
-| WordPress | [![cloudformation-launch-stack](https://s3.amazonaws.com/aws-us-east-1/tutorial/deploy_to_aws_20171004_v2.png)](https://github.com/aws-samples/amazon-efs-workshop/tree/master/scenarios/wordpress) |
-| Drupal | [![cloudformation-launch-stack](https://s3.amazonaws.com/aws-us-east-1/tutorial/deploy_to_aws_20171004_v2.png)](https://github.com/aws-samples/amazon-efs-workshop/tree/master/scenarios/drupal) |
-| Magento | [![cloudformation-launch-stack](https://s3.amazonaws.com/aws-us-east-1/tutorial/deploy_to_aws_20171004_v2.png)](https://github.com/aws-samples/amazon-efs-workshop/tree/master/scenarios/magento) |
-| Atlassian Jira | [![cloudformation-launch-stack](https://s3.amazonaws.com/aws-us-east-1/tutorial/deploy_to_aws_20171004_v2.png)](https://github.com/aws-samples/amazon-efs-workshop/tree/master/scenarios/atlassian-jira) |
-| Docker | [![cloudformation-launch-stack](https://s3.amazonaws.com/aws-us-east-1/tutorial/deploy_to_aws_20171004_v2.png)](https://github.com/aws-samples/amazon-efs-workshop/tree/master/scenarios/docker) |
+| WordPress | [![](https://s3.amazonaws.com/aws-us-east-1/tutorial/deploy_to_aws_20171004_v2.png)](/wordpress) |
+| Drupal | [![](https://s3.amazonaws.com/aws-us-east-1/tutorial/deploy_to_aws_20171004_v2.png)](https://github.com/aws-samples/amazon-efs-workshop/tree/master/scenarios/drupal) |
+| Magento | [![](https://s3.amazonaws.com/aws-us-east-1/tutorial/deploy_to_aws_20171004_v2.png)](https://github.com/aws-samples/amazon-efs-workshop/tree/master/scenarios/magento) |
+| Atlassian Jira | [![](https://s3.amazonaws.com/aws-us-east-1/tutorial/deploy_to_aws_20171004_v2.png)](https://github.com/aws-samples/amazon-efs-workshop/tree/master/scenarios/atlassian-jira) |
+| Docker | [![](https://s3.amazonaws.com/aws-us-east-1/tutorial/deploy_to_aws_20171004_v2.png)](https://github.com/aws-samples/amazon-efs-workshop/tree/master/scenarios/docker) |
 
 
 
