@@ -286,6 +286,20 @@ nload -u M
 **6.3.** Select **Actions** then **Cancel Spot request**. Confirm the **Terminate instances** checkbox is checked and select **Confirm**.
 
 
+## Conclusion
+The distributed data storage design of Amazon EFS enables high levels of availability, durability, and scalability. This distributed architecture results in a small latency overhead for each file operation. Due to this per-operation latency, overall throughput generally increases as the average I/O size increases, because the overhead is amortized over a larger amount of data. Amazon EFS supports highly parallelized workloads (for example, using concurrent operations from multiple threads and multiple Amazon EC2 instances), which enables high levels of aggregate throughput and operations per second.
+
+---
+## Next Scenarios
+### Click on the link below to pick a scenario
+
+| Tutorial | Link
+| --- | ---
+| **Scenarios** | [![](/images/efs_scenario.png)](/) |
+
+---
+
+
 ## Having issues? - Want to save time?
 
 ### Launch the AWS CloudFormation Stack
@@ -323,4 +337,8 @@ Once the script has been successfully executed, the Name tag of each instance wi
 ## Delete the CloudFormation stack
 Delete the cloud formation stack to terminate all EC2 instances in the fleet.
 
+## Troubleshooting
 For feedback, suggestions, or corrections, please email me at [darrylo@amazon.com](mailto:darrylo@amazon.com).
+
+## License
+This library is licensed under the Amazon Software License.
