@@ -52,7 +52,7 @@ Click on the ![](/images/efs_tutorial.png) link below to go to the **Performance
 
 | Tutorial | Link
 | --- | ---
-| **Performance** | [![](efs_tutorial.png)](/tutorial/performance) |
+| **Performance** | [![](/images/efs_tutorial.png)](/tutorial/performance) |
 
 
 ### 3. Scale-out
@@ -62,7 +62,7 @@ Click on the ![](/images/efs_tutorial.png) link below to go to the **Scale-out**
 
 | Tutorial | Link
 | --- | ---
-| **Scale-out** | [![](efs_tutorial.png)](/tutorial/scale-out) |
+| **Scale-out** | [![](/images/efs_tutorial.png)](/tutorial/scale-out) |
 
 ---
 
