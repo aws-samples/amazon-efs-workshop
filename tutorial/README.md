@@ -38,7 +38,7 @@ This tutorial is a set of AWS Cloudformation templates that will create an Amazo
 
 | Tutorial | Link
 | --- | ---
-| **Create a file system** | [![](https://github.com/aws-samples/amazon-efs-workshop/blob/master/images/deploy_to_aws.png)](/create-file-system) |
+| **Create a file system** | [![](https://github.com/aws-samples/amazon-efs-workshop/blob/master/images/deploy_to_aws.png)](/tutorial/create-file-system) |
 
 ### 2. Performance
 This tutorial is a set of scripts that will demonstrate:
@@ -48,7 +48,7 @@ This tutorial is a set of scripts that will demonstrate:
 
 | Tutorial | Link
 | --- | ---
-| **Performance** | [![](https://github.com/aws-samples/amazon-efs-workshop/blob/master/images/deploy_to_aws.png)](/performance) |
+| **Performance** | [![](https://github.com/aws-samples/amazon-efs-workshop/blob/master/images/deploy_to_aws.png)](/tutorial/performance) |
 
 
 ### 3. Scale-out
@@ -56,7 +56,7 @@ This tutorial is a Cloudformation template that will create an Amazon EC2 spot f
 
 | Tutorial | Link
 | --- | ---
-| **Scale-out** | [![](https://github.com/aws-samples/amazon-efs-workshop/blob/master/images/deploy_to_aws.png)](/scale-out) |
+| **Scale-out** | [![](https://github.com/aws-samples/amazon-efs-workshop/blob/master/images/deploy_to_aws.png)](/tutorial/scale-out) |
 
 ---
 
