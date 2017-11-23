@@ -185,9 +185,7 @@ Near the bottom of the JSON task definition, you can see the definition of the
 
 And that’s how the containers are configured to use EFS. If you’re interested in
 learning how EFS was initially created and mounted on the underlying EC2
-instances, review the CloudFormation template, which is
-available in the Template tab on the [CloudFormation
-page](https://us-east-2.console.aws.amazon.com/cloudformation/home?region=us-east-2#/stacks?filter=active&tab=template).
+instances, review the [CloudFormation template](https://github.com/aws-samples/amazon-efs-workshop/blob/c226a06bed6b5699caeebd4954b5405f1db59e04/scenarios/docker/reInvent-2017-efs-workshop-ecs-php.yml#L415), or once you connect to an instance (see below), view the file `/etc/fstab` to see how EFS is mounted on the instance.
 
 5.  Now let’s access the Apache containers. [Go to the CloudFormation
     page](https://us-east-2.console.aws.amazon.com/cloudformation/home?region=us-east-2#/stacks?filter=active&tab=template),
