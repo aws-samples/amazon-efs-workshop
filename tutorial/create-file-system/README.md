@@ -226,7 +226,7 @@ One auto scaling group and launch configuration to launch an EC2 instance that r
 
 | Tutorial | Link
 | --- | ---
-| **Performance** | [![](/images/efs-tutorial-button.png)](/tutorial/performance) |
+| **Performance** | [![](/images/efs_tutorial.png)](/tutorial/performance) |
 
 ---
 ## Bonus
