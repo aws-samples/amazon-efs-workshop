@@ -81,7 +81,7 @@ if (empty($_GET['refresh'])) {
 	
 	<meta name="author" content="<?php echo $author_name; ?>" />
 	
-	<style type="text/css" media="all">@import "css/master.css";</style>
+	<style type="text/css" media="all">@import "master.css";</style>
 </head>
 
 <body class="about">
@@ -128,7 +128,7 @@ if (empty($_GET['refresh'])) {
 			            echo '<td no wrap><span class="value">'. $x_value . '</span></td>';
 			       echo '</tr>';
                 }
-                echo '<tr><td> <b>Container ID:' . $hostname . '</td></tr>';
+                echo '<tr><td> Container ID:</td><td>' . $hostname . '</td></td></tr>';
 			    echo '</table>';
 		    	?>
 		</div>
