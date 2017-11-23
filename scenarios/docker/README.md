@@ -216,7 +216,7 @@ page](https://us-east-2.console.aws.amazon.com/cloudformation/home?region=us-eas
         with **ec2-user\@.** For Mac and Linux users, the command should look
         similar to this:
     ```   
-    ssh -i us-east-2-kp.pem ec2-user\@ec2-13-58-69-171.us-east-2.compute.amazonaws.com
+    ssh -i us-east-2-kp.pem ec2-user@ec2-13-58-69-171.us-east-2.compute.amazonaws.com
     ```
     2. For Windows users, follow the instructions for your preferred SSH app. If you don’t have a SSH app, [see this
     page](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/putty.html).
