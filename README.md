@@ -51,7 +51,7 @@ Click the logo link below to go to the specific scenario. Once you've finished o
 
 | Scenario | Go to |
 | --- | --- 
-| WordPress | [![](https://s3.amazonaws.com/aws-us-east-1/tutorial/deploy_to_aws_20171004_v2.png)](/wordpress) |
+| WordPress | [![](/images/deploy_to_aws.png)](/scenarios/wordpress) |
 | Drupal | [![](https://s3.amazonaws.com/aws-us-east-1/tutorial/deploy_to_aws_20171004_v2.png)](https://github.com/aws-samples/amazon-efs-workshop/tree/master/scenarios/drupal) |
 | Magento | [![](https://s3.amazonaws.com/aws-us-east-1/tutorial/deploy_to_aws_20171004_v2.png)](https://github.com/aws-samples/amazon-efs-workshop/tree/master/scenarios/magento) |
 | Atlassian Jira | [![](https://s3.amazonaws.com/aws-us-east-1/tutorial/deploy_to_aws_20171004_v2.png)](https://github.com/aws-samples/amazon-efs-workshop/tree/master/scenarios/atlassian-jira) |
