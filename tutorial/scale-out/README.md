@@ -295,7 +295,7 @@ The distributed data storage design of Amazon EFS enables high levels of availab
 
 | Tutorial | Link
 | --- | ---
-| **Scenarios** | [![](/images/efs_scenario.png)](.#section-2-scenarios) |
+| **Scenarios** | [![](/images/efs_scenario.png)](https://github.com/aws-samples/amazon-efs-workshop#section-2-scenarios) |
 
 ---
 
