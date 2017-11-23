@@ -1,7 +1,7 @@
 STG321 Amazon EFS: Leverage the Power of a Distributed Shared File System in the Cloud
 ======================================================================================
 
-**EFS re:Invent Lab:** Using Amazon EFS to Persist Data from Amazon ECS
+**re:Invent 2017 Workshop Lab:** Using Amazon EFS to Persist Data from Amazon ECS
 Containers
 
 Approx. time to complete: **30 minutes**
@@ -9,20 +9,18 @@ Approx. time to complete: **30 minutes**
 Getting Started
 ---------------
 
-Docker containers are intended to be stateless. Data written to a container's
-filesystem will be lost once a container terminates. Therefore, important data
-must be persisted outside a container, such as a volume on the host running the
-container, a database, Amazon S3, etc. In this lab, we will look at how Amazon
-EFS can be used for persistent container storage. EFS is a highly-available,
-high performance file system for content management systems that store and serve
-information for a range of applications like web sites, home directories, online
-publications, and archives. It’s a great option for external container storage.
+Amazon Elastic File System (Amazon EFS) provides simple, scalable file storage for use with Amazon EC2 instances. With Amazon EFS, storage capacity is elastic, growing and shrinking automatically as you add and remove files. Your applications can have the storage they need, when they need it. You can use Amazon EFS file systems with Amazon ECS to export file system data across your fleet of Docker container instances. That way, your tasks have access to the same persistent storage, no matter the instance on which they land.
 
-In this lab, several Apache web servers containers will share PHP code for a web
-directory hosted on EFS. The benefit is that a single filesystem can be shared
-across thousands of containers. The assets that represent a web application can
+Docker containers tend to be stateless. Data written to a container's
+filesystem will be lost once a container terminates. Therefore, important data
+must be persisted outside a container, such as a volume on the container host, a database, Amazon S3, etc. In this lab, we will look at how
+EFS can be used for persistent container storage.
+
+In this lab, several Apache web servers containers will share PHP code on an EFS web
+directory. The benefit is that a single filesystem can be shared
+across potentially thousands of containers. The assets that represent a web application can
 be updated in a single place making the update available to all containers. This
-simplifies deploying code changes greatly.
+can simplify deploying code changes.
 
 CloudFormation will deploy all of the components required for the lab. The
 Apache containers will run on several EC2 instances and will be fronted by an
@@ -30,7 +28,7 @@ Application Load Balancer (ALB). These components will be managed by EC2
 Container Service (ECS). The instances will run inside a VPC that has subnets
 that span two Availability Zones.
 
-**Disclaimer:** To make the lab easier, we use permissive security policies,
+**Disclaimer:** To make the lab easier, it uses permissive security policies,
 which should not be used in any real environment. Additionally, we've narrowed
 the configuration options (such as the range of available EC2 instances), to
 cost optimize the lab.
@@ -82,7 +80,7 @@ Launch the lab
 
 ![](media/cf2bb0881795bd8fd183444e2eb742ff.png)
 
-5.  Choose Create Stack and in the Choose a template section, enter this in the
+5.  Choose **Create Stack** and in the **Choose a template** section, enter this in the
     **Specify an Amazon S3 template URL** textbox:
     https://s3.amazonaws.com/amazon-elastic-file-system/workshop/docker/reInvent-2017-efs-workshop-ecs-php.yml
 
@@ -95,7 +93,7 @@ Launch the lab
 
     2.  For the **KeyName** field, choose the key pair that you created earlier.
 
-    3.  Click **Next.**
+    3.  Click **Next**.
 
 ![](media/a5c54b97ee6d602bd327b3e9a392341f.png)
 
@@ -128,18 +126,18 @@ Launch the lab
 **Figure 2. Stack creation complete.**
 
 While the lab is building, let’s preview what will happen next. Upon stack
-completion, several Apache containers will be running. The Apache home directory
-will be mapped to an EFS volume. The volume will be empty therefore when you
+completion, several Apache containers will be running. The Apache root directory
+will be mapped to an EFS volume. The volume will be empty so when you
 visit the site, you will see a HTTP error. To fix that, you will add a simple
 *index.php* file and the Apache containers will serve that. If you change the
-contents of *index.php*, the changes are available to the containers immeadiately.
+contents of *index.php*, the changes are visible to all containers immediately.
 
 Explore the lab
 ===============
 
 Proceed once the stack status says **CREATE_COMPLETE.**
 
-1.  The CloudFormation template created the EFS filesystem and mounted them on
+1.  The CloudFormation template created the EFS filesystem and mounted it on
     the EC2 container instances. But how do the containers gain access to the
     EFS filesystem? Let’s look at the linkage between the containers and EFS.
     [Go to the ECS
@@ -150,19 +148,19 @@ Proceed once the stack status says **CREATE_COMPLETE.**
 ![](media/16218e0cceaf5f883f5dcd046a2c25a6.png)
 
 2.  The cluster details should show 10 containers running. You can view the
-    containers that are running by clicking on the **Tasks** tab. Click on the
+    running containers by clicking on the **Tasks** tab. Click on the
     **Task Definition** to view the details of the container configuration.
 
 ![](media/74ecb04713abde3f3cbc782e13beccca.png)
 
-3.  The Builder view, in the Volumes section will show that there’s a volume
+3.  In the **Builder** view, the Volumes section will show that there’s a volume
     available to the containers called *my-efs*. This volume is mounted on the
-    EC2 instances running the containers at /mnt/efs/php.
+    EC2 container instances at /mnt/efs/php.
 
 ![](media/bec337bfe34ae40c5cfe80783fcce19e.png)
 
-4.  In the JSON view, we can see the on the containers, the **my-efs** volume is
-    mounted to **/var/www/html**, the default Apache home directory.
+4.  In the JSON view, we can see that on the containers, the **my-efs** volume is
+    mounted to **/var/www/html**, the default Apache home directory. Intitially this directory is empty.
 ```
    "mountPoints": [
     {
@@ -186,7 +184,7 @@ Near the bottom of the JSON task definition, you can see the definition of the
 ```
 
 And that’s how the containers are configured to use EFS. If you’re interested in
-learning how EFS was initially created and connected to the underlying EC2
+learning how EFS was initially created and mounted on the underlying EC2
 instances, review the CloudFormation template, which is
 available in the Template tab on the [CloudFormation
 page](https://us-east-2.console.aws.amazon.com/cloudformation/home?region=us-east-2#/stacks?filter=active&tab=template).
@@ -200,7 +198,7 @@ page](https://us-east-2.console.aws.amazon.com/cloudformation/home?region=us-eas
 
 6.  When your browser visits the link, you will see the error “*502 Bad
     Gateway*” or *“503 Service Temporarily Unavailable”*. This is because the
-    EFS directory used as the home directory by the Apache containers is empty.
+    EFS directory used as the root directory by the Apache containers is empty.
     Apache can’t find a root document, so it displays an error. Let’s fix this
     by connecting to an EC2 instance and adding a index.php file to the EFS
     directory.
@@ -240,18 +238,17 @@ page](https://us-east-2.console.aws.amazon.com/cloudformation/home?region=us-eas
 By manually refreshing the page or setting it to automatically refresh, you can
 observe that the instance-id and container-id will change. This demonstrates
 that requests are being served by multiple containers running on different
-instances, all sharing a single EFS file system.
+instances, all sharing a single EFS file system.  If you were to make a change to index.php or master.css, that change would be available to all containers instantly.  In practice, production containers are embedded with
+the code they need but the goal of this lab was to demonstrate how easy it is to integrate EFS and ECS (or with any other type of container environment).
 
 Conclusion
 ==========
 
-As you saw, EFS make it very simple to share data amongst multiple containers.
-In this lab, the containers read the data from EFS but they also could have
-easily written data to EFS. In practice, production containers are embedded with
-the code they need. But depending on the workload, EFS makes it easy for
-multiple containers to access shared data. Containers can also produce valuable
+As you saw, EFS makes it simple to share data amongst multiple containers.
+In this lab, the containers only read data from EFS but obviously they also could have
+easily written data to EFS.  Containers can also produce valuable
 data that needs to be persisted beyond the lifetime of the container. EFS is a
-good option for containers to store that data.
+reliable option for containers to store that data.
 
 Delete the CloudFormation Stack
 ===============================
