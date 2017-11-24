@@ -65,7 +65,7 @@ Click on the ![cloudformation-launch-stack](https://s3.amazonaws.com/aws-us-east
 
 ## Overview
 
-![architecture-overview](images/aws-refarch-drupal-v20170713.jpg)
+![architecture-overview](/images/aws-refarch-drupal-v20170713.jpg)
 
 The repository consists of a set of nested templates which are run in order from the master template. Run the master template to create the entire stack, entering the appropriate parameters. Nested templates can be run individually in order, entering the appropriate input parameters for each stack.
 
@@ -96,29 +96,29 @@ Before starting the installation wizard, verify that the OpCache status page is 
 To start the installation wizard, click on the SiteURL link of the master template's Output tab.
 
 Select the appropriate language and click ***Save and continue***.
-![Choose Language](images/aws-refarch-drupal_wizard_language.png)
+![Choose Language](/images/aws-refarch-drupal_wizard_language.png)
 
 
 
 Select your desired installation profile and click ***Save and continue***.
-![Installation Profile](images/aws-refarch-drupal_wizard_profile.png)
+![Installation Profile](/images/aws-refarch-drupal_wizard_profile.png)
 
 
 
 Enter your database configuration. Enter the Database name, Database username, and Database password you entered as parameters of the CloudFormation master template. Select ***ADVANCED OPTIONS*** and enter the ***DatabaseClusterEndpointAddress*** of the RDS cluster created with this stack.  This can be found in the CloudFormation Stack window by selecting the RDS statck that was just created and selecting the ***Output*** tab. Click ***Save and continue***.
-![Database Configuration](images/aws-refarch-drupal_wizard_database.png)
+![Database Configuration](/images/aws-refarch-drupal_wizard_database.png)
 
 
 
 
 The installation wizard will install the site.
-![Site Installation](images/aws-refarch-drupal_wizard_installing.png)
+![Site Installation](/images/aws-refarch-drupal_wizard_installing.png)
 
 
 
 
 After the site has been installed, enter the site information and click ***Save and continue***. 
-![Site Configuration](images/aws-refarch-drupal_wizard_configsite.png)
+![Site Configuration](/images/aws-refarch-drupal_wizard_configsite.png)
 
 
 
