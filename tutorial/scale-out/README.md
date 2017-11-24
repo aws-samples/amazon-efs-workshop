@@ -285,6 +285,13 @@ nload -u M
 
 **6.3.** Select **Actions** then **Cancel Spot request**. Confirm the **Terminate instances** checkbox is checked and select **Confirm**.
 
+### Results
+### Sample Results*
+
+![](/images/efs_scale_out_demo_results.mp4)
+![](/images/efs_scale_out_demo_results.png)
+*this was achieved using a file system with a permitted throughput greater than 3 GB/s
+
 
 ## Conclusion
 The distributed data storage design of Amazon EFS enables high levels of availability, durability, and scalability. This distributed architecture results in a small latency overhead for each file operation. Due to this per-operation latency, overall throughput generally increases as the average I/O size increases, because the overhead is amortized over a larger amount of data. Amazon EFS supports highly parallelized workloads (for example, using concurrent operations from multiple threads and multiple Amazon EC2 instances), which enables high levels of aggregate throughput and operations per second.
@@ -299,8 +306,9 @@ The distributed data storage design of Amazon EFS enables high levels of availab
 
 ---
 
+### Bonus
 
-## Having issues? - Want to save time?
+#### Having issues? - Want to save time?
 
 ### Launch the AWS CloudFormation Stack
 
