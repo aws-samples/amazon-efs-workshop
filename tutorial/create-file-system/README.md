@@ -20,11 +20,27 @@ Errors or corrections? Email us at [darrylo@amazon.com](mailto:darrylo@amazon.co
 ### Table of Contents  
 [Tutorial Overview](#tutorial-overview) 
 
-[1. Create an Amazon VPC](#step-1-create-an-amazon-virtual-private-cloud-amazon-vpc)
+[1. Create an Amazon VPC](#step-1)
 
-[2. Create an Amazon EFS file system](#2-performance) 
+[2. Create an Amazon EFS file system](#step-2) 
 
-[3. Scale-out](#3-scale-out) 
+[3. Confirm SNS subscription](#step-3)
+
+[4. Verify CloudWatch alarms](#step-4)
+
+[5. Verify the EC2 instances terminates](#step-5)
+
+[6. Next tutorial](#next-tutorial)
+
+[7. Bonus](#bonus)
+
+[8. Add data to grow a file system](#add-data-to-grow-a-file-system)
+
+[9. Create an AWS CloudWatch Dashboard and Alarms to a file system](#create-an-aws-cloudwatch-dashboard-and-alarms-to-a-file-system)
+
+[10. Create AWS CloudWatch Alarms to a file system](#create-aws-cloudwatch-alarms-to-a-file-system)
+
+[11. Create an AWS CloudWatch Dashboard for a file system](#create-an-aws-cloudwatch-dashboard-for-a-file-system)
 
 ---
 
@@ -134,7 +150,8 @@ This file system will be used in the **Performance** and **Scale-out** tutorials
 
 ---
 
-### Step 3: Confirm SNS subscription
+### Step 3:
+### Confirm SNS subscription
 
 The email address entered as an input parameter will automatically be subscribed to the SNS topic and will receive an **AWS Notification - Subscription Confirmation email**. Click on the ***Confirm subscription*** link in the email.
 
@@ -142,13 +159,15 @@ The email address entered as an input parameter will automatically be subscribed
 
 ---
 
-### Step 4: Verify CloudWatch alarms have been created
+### Step 4:
+### Verify CloudWatch alarms have been created
 
 Verify all four CloudWatch alarms have been created. See the **AWS Resources** section below for the alarm names.
 
 ![](https://s3.amazonaws.com/aws-us-east-1/tutorial/create-efs-resources/efs-create-alarms.png)
 
-### Step 5: Verify the EC2 instances terminate after a few minutes
+### Step 5:
+### Verify the EC2 instances terminate after a few minutes
 
 Two instances are launched from separate Auto Scaling groups.
 
@@ -263,9 +282,9 @@ Below are the unnested CloudFormation templates from above that can be run indiv
 | eu-central-1 |EU (Frankfurt)| [![cloudformation-launch-stack](/images/deploy_to_aws.png)](https://console.aws.amazon.com/cloudformation/home?region=eu-central-1#/stacks/new?stackName=efs-add-data&templateURL=https://s3.amazonaws.com/aws-us-east-1/tutorial/create-efs-resources/efs-add-data.yml) |
 | ap-southeast-2 |AP (Sydney)| [![cloudformation-launch-stack](/images/deploy_to_aws.png)](https://console.aws.amazon.com/cloudformation/home?region=ap-southeast-2#/stacks/new?stackName=efs-add-data&templateURL=https://s3.amazonaws.com/aws-us-east-1/tutorial/create-efs-resources/efs-add-data.yml) |
 
-### Create an AWS CloudWatch Dashboard with a file system size custom metric and CloudWatch Alarms to monitor Burst Credit Balance
+### Create an AWS CloudWatch Dashboard and Alarms to a file system
 
-This template is a combination of the following two templates.
+Creates an AWS CloudWatch Dashboard with a file system size custom metric and CloudWatch Alarms to monitor Burst Credit Balance to an existing file system. This template is a combination of the following two templates.
 
 | AWS Region Code | Name | Launch |
 | --- | --- | --- 
@@ -276,7 +295,9 @@ This template is a combination of the following two templates.
 | eu-central-1 |EU (Frankfurt)| [![cloudformation-launch-stack](/images/deploy_to_aws.png)](https://console.aws.amazon.com/cloudformation/home?region=eu-central-1#/stacks/new?stackName=efs-create-dashboard-alarms&templateURL=https://s3.amazonaws.com/aws-us-east-1/tutorial/create-efs-resources/efs-dashboard-with-size-monitor-and-burst-credit-balance-alarms.yml) |
 | ap-southeast-2 |AP (Sydney)| [![cloudformation-launch-stack](/images/deploy_to_aws.png)](https://console.aws.amazon.com/cloudformation/home?region=ap-southeast-2#/stacks/new?stackName=efs-create-dashboard-alarms&templateURL=https://s3.amazonaws.com/aws-us-east-1/tutorial/create-efs-resources/efs-dashboard-with-size-monitor-and-burst-credit-balance-alarms.yml) |
 
-### Create AWS CloudWatch Alarms to Monitor Burst Credit Balance
+### Create AWS CloudWatch Alarms to a file system
+
+Creates AWS CloudWatch Alarms to monitor Burst Credit Balance of an existing file system.
 
 | AWS Region Code | Name | Launch |
 | --- | --- | --- 
@@ -289,7 +310,9 @@ This template is a combination of the following two templates.
 
 
 
-### Create an AWS CloudWatch Dashboard with a file system size custom metric
+### Create an AWS CloudWatch Dashboard for a file system
+
+Creates an AWS CloudWatch Dashboard with a file system size custom metric for an existing file system.
 
 | AWS Region Code | Name | Launch |
 | --- | --- | --- 
