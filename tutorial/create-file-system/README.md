@@ -17,6 +17,17 @@ Errors or corrections? Email us at [darrylo@amazon.com](mailto:darrylo@amazon.co
 
 ---
 
+### Table of Contents  
+[Tutorial Overview](#tutorial-overview) 
+
+[1. Create an Amazon VPC](#step-1-create-an-amazon-virtual-private-cloud-amazon-vpc)
+
+[2. Performance](#2-performance) 
+
+[3. Scale-out](#3-scale-out) 
+
+---
+
 ## Tutorial Overview
 
 ### Overview
