@@ -34,13 +34,13 @@ Errors or corrections? Email us at [darrylo@amazon.com](mailto:darrylo@amazon.co
 
 [7. Bonus](#bonus)
 
-[8. Add data to grow a file system](#add-data-to-grow-a-file-system)
+- [Add data to grow a file system](#add-data-to-grow-a-file-system)
 
-[9. Create an AWS CloudWatch Dashboard and Alarms to a file system](#create-an-aws-cloudwatch-dashboard-and-alarms-to-a-file-system)
+- [Create an AWS CloudWatch Dashboard and Alarms to a file system](#create-an-aws-cloudwatch-dashboard-and-alarms-to-a-file-system)
 
-[10. Create AWS CloudWatch Alarms to a file system](#create-aws-cloudwatch-alarms-to-a-file-system)
+  [10. Create AWS CloudWatch Alarms to a file system](#create-aws-cloudwatch-alarms-to-a-file-system)
 
-[11. Create an AWS CloudWatch Dashboard for a file system](#create-an-aws-cloudwatch-dashboard-for-a-file-system)
+  [11. Create an AWS CloudWatch Dashboard for a file system](#create-an-aws-cloudwatch-dashboard-for-a-file-system)
 
 ---
 
