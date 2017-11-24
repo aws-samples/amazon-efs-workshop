@@ -286,10 +286,12 @@ nload -u M
 **6.3.** Select **Actions** then **Cancel Spot request**. Confirm the **Terminate instances** checkbox is checked and select **Confirm**.
 
 ### Results
-### Sample Results*
+### Sample Results
 
-![](/images/efs_scale_out_demo_results.mp4)
-![](/images/efs_scale_out_demo_results.png)
+Click on the image to watch a screen capture*
+
+[![video](/images/efs_scale_out_demo_results.png)](https://s3.amazonaws.com/aws-us-east-1/tutorial/create-efs-resources/efs_scale_out_demo_results.mp4)
+
 *this was achieved using a file system with a permitted throughput greater than 3 GB/s
 
 
