@@ -285,7 +285,7 @@ nload -u M
 
 **6.3.** Select **Actions** then **Cancel Spot request**. Confirm the **Terminate instances** checkbox is checked and select **Confirm**.
 
-### Results
+
 ### Sample Results
 
 Click on the image to watch a screen capture*
