@@ -22,7 +22,7 @@ Errors or corrections? Email us at [darrylo@amazon.com](mailto:darrylo@amazon.co
 
 [1. Create an Amazon VPC](#step-1-create-an-amazon-virtual-private-cloud-amazon-vpc)
 
-[2. Performance](#2-performance) 
+[2. Create an Amazon EFS file system](#2-performance) 
 
 [3. Scale-out](#3-scale-out) 
 
@@ -77,7 +77,8 @@ Click on the ![cloudformation-launch-stack](/images/deploy_to_aws.png) link belo
 
 ---
 
-### Step 2: Create Amazon Elastic File System (Amazon EFS) w/ data and CloudWatch dashboard, alarms, and size metric
+### Step 2:
+### Create Amazon Elastic File System (Amazon EFS) w/ data and CloudWatch dashboard, alarms, and size metric
 
 #### Overview
 
