@@ -40,13 +40,13 @@ WARNING!! This workshop environment will exceed your free-usage tier. You will i
 
 - Enter the database master username (e.g. **administrator**)
 
-- Enter the database master username password (e.g. **DbP@s$W04d**)
+- Enter the database master username password (e.g. **DbPas$W04d**)
 
 - Enter the database name (e.g. **wordpress**)
 
 - Enter WordPress admin username (e.g. **administrator**)
 
-- Enter WordPress admin username password (e.g. **Adm!nP@s$W04d**)
+- Enter WordPress admin username password (e.g. **Adm!nPas$W04d**)
 
 - Enter WordPress admin email address (e.g. **admin@test.com**)
 
