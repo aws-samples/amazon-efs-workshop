@@ -38,16 +38,26 @@ WARNING!! This workshop environment will exceed your free-usage tier. You will i
 ### Step 1: Create a Drupal environment on AWS
 #### Parameters
 
-- Select three (3) Availability Zones
+- Select an existing EC2 key pair
 
-- Use default Network Configuration parameters
+- Enter the database master username (e.g. **administrator**)
 
-- Select an existing Amazon EC2 key pair
+- Enter the database master username password (e.g. **DbPas$W04d**)
 
-- Use the default NAT instance size
+- Enter the database name (e.g. **drupal**)
+
+- Enter Drupal admin username (e.g. **administrator**)
+
+- Enter Drupal admin username password (e.g. **Adm!nPas$W04d**)
+
+- Enter Drupal admin email address (e.g. **admin@test.com**)
+
+- Enter Drupal site directory (e.g. **drupal**)
+
+- Accept all other defaults or blank)
 
 ---
-![](https://s3.amazonaws.com/aws-us-east-1/tutorial/create-efs-resources/efs-create-vpc.png)
+![](/images/aws_drupal_parameters.png)
 
 ---
 
