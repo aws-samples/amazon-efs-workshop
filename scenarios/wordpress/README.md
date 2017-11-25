@@ -33,7 +33,7 @@ Verify that the key pair is created in the same AWS region you will use for the 
 WARNING!! This workshop environment will exceed your free-usage tier. You will incur charges as a result of building this environment and executing the scripts included in this workshop. Delete all files on the EFS file system that were created during this workshop and delete the stack so you don’t continue to incur additional compute and storage charges.
 
 ## Workshop
-### Step 1: Create a WordPress environment on AWS
+## Step 1: Create a WordPress environment on AWS
 #### Parameters
 
 - Select an existing EC2 key pair
@@ -182,14 +182,14 @@ Review the template here [aws-refarch-wordpress-master.yaml](templates/aws-refar
 
 
 
-## Master Template
+### Master Template
 The master template receives all input parameters and passes them to the appropriate nested template which are executed in order based on dependencies.
 Review the template here [aws-refarch-wordpress-master.yaml](templates/aws-refarch-wordpress-master.yaml)
 
-## New VPC Template
+### New VPC Template
 Review the template here [aws-refarch-wordpress-01-newvpc.yaml](templates/aws-refarch-wordpress-01-newvpc.yaml)
 
-### VPC and subnet IP ranges
+#### VPC and subnet IP ranges
 
 The 'newvpc' stack creates the following network design:
 
@@ -233,35 +233,35 @@ Mappings:
       CIDR: 10.0.254.0/23
 ```
 
-## Security Groups Template
+#### Security Groups Template
 Review the template here [aws-refarch-wordpress-02-securitygroups.yaml](templates/aws-refarch-wordpress-02-securitygroups.yaml)
 
-## Bastion Template
+#### Bastion Template
 Review the template here [aws-refarch-wordpress-03-bastion.yaml](templates/aws-refarch-wordpress-03-bastion.yaml)
 
-## Amazon EFS Template
+#### Amazon EFS Template
 Review the template here [aws-refarch-wordpress-03-efs.yaml](templates/aws-refarch-wordpress-03-efs.yaml)
 
-## Amazon ElastiCache Template
+#### Amazon ElastiCache Template
 Review the template here [aws-refarch-wordpress-03-elasticache.yaml](templates/aws-refarch-wordpress-03-elasticache.yaml)
 
-## Amazon Elastic Load Balancing - Application Load Balancer Template
+#### Amazon Elastic Load Balancing - Application Load Balancer Template
 Review the template here [aws-refarch-wordpress-03-publicelb.yaml](templates/aws-refarch-wordpress-03-publicalb.yaml)
 
-## Amazon RDS Template
+#### Amazon RDS Template
 Review the template here [aws-refarch-wordpress-03-rds.yaml](templates/aws-refarch-wordpress-03-rds.yaml)
 
-## Amazon CloudFront Template
+#### Amazon CloudFront Template
 Review the template here [aws-refarch-wordpress-04-cloudfront.yaml](templates/aws-refarch-wordpress-04-cloudfront.yaml)
 
-## WordPress Web Template
+#### WordPress Web Template
 Review the template here [aws-refarch-wordpress-04-web.yaml](templates/aws-refarch-wordpress-04-web.yaml)
 
-## Amazon Route 53 Template
+#### Amazon Route 53 Template
 Review the template here [aws-refarch-wordpress-05-route53.yaml](templates/aws-refarch-wordpress-05-route53.yaml)
 
 
-### Step 2: Administer WordPress
+## Step 2: Administer WordPress
 
 - From the CloudFormation console, click on the link to the WordPress site (WPSiteUrl) from the Output tab of the master template
 - Log in to the Admin console (bottom right of page)
