@@ -38,13 +38,23 @@ WARNING!! This workshop environment will exceed your free-usage tier. You will i
 ### Step 1: Create a WordPress environment on AWS
 #### Parameters
 
-- Select three (3) Availability Zones
+- Select an existing EC2 key pair
 
-- Use default Network Configuration parameters
+- Enter the database master username (e.g. **administrator**)
 
-- Select an existing Amazon EC2 key pair
+- Enter the database master username password (e.g. **DbP@s$W04d**)
 
-- Use the default NAT instance size
+- Enter the database name (e.g. **wordpress**)
+
+- Enter WordPress admin username (e.g. **administrator**)
+
+- Enter WordPress admin username password (e.g. **Adm!nP@s$W04d**)
+
+- Enter WordPress admin email address (e.g. **admin@test.com**)
+
+- Enter WordPress site directory (e.g. **wordpress**)
+
+- Accept all other defaults, either auto-filled or blank)
 
 ---
 ![](/images/aws_wordpress_parameters.png)
