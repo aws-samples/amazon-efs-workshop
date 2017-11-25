@@ -54,7 +54,7 @@ WARNING!! This workshop environment will exceed your free-usage tier. You will i
 
 - Enter WordPress site directory (e.g. **wordpress**)
 
-- Accept all other defaults, either auto-filled or blank)
+- Accept all other defaults or blank)
 
 ---
 ![](/images/aws_wordpress_parameters.png)
