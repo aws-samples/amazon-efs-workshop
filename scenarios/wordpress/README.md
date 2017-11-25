@@ -261,9 +261,13 @@ Review the template here [aws-refarch-wordpress-04-web.yaml](templates/aws-refar
 Review the template here [aws-refarch-wordpress-05-route53.yaml](templates/aws-refarch-wordpress-05-route53.yaml)
 
 
-## Add a new item to this list
+### Step 2: Administer WordPress
 
-If you found yourself wishing this set of frequently asked questions had an answer for a particular problem, please [submit a pull request](https://help.github.com/articles/creating-a-pull-request-from-a-fork/). The chances are that others will also benefit from having the answer listed here.
+- From the CloudFormation console, click on the link to the WordPress site (WPSiteUrl) from the Output tab of the master template
+- Log in to the Admin console (bottom right of page)
+- Walk through a few administrative tasks (e.g. add a plugin or change the theme - see how easy it is to change these features to a fleet of WordPress servers using Amazon EFS)
+- Verify OPcache is working correctly. From the CloudFormation console, click the link to the OPcache status page (OpCacheValidationUrl) from the Output tab of the master template. Refresh your browser a few times to verify it is working on all instances.
+- Increase the number of desired instances in the WordPress Web Auto Scaling Group, wait a few minutes and see what happens.
 
 
 ---
