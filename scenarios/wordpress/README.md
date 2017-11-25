@@ -74,7 +74,7 @@ Click on the ![cloudformation-launch-stack](/images/deploy_to_aws.png) link belo
 
 ## Overview
 
-![architecture-overview](images/aws_wordpress.png)
+![architecture-overview](/images/aws_wordpress.png)
 
 The repository consists of a set of nested templates which are run in order from the master template. Run the master template to create the entire stack, entering the appropriate parameters. Nested templates can be run individually in order, entering the appropriate input parameters for each stack.
 
