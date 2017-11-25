@@ -255,3 +255,13 @@ We're going to remove resources in the reverse order from which they were create
 **Step 5:** Navigate back to the CloudFormation console and delete the Jira security group stack.
 
 **Step 6:** Finally, delete the Jira VPC stack created during *Step 1: Building the Virtual Private Cloud*.
+
+---
+## Next Scenarios
+### Click on the link below to pick a scenario
+
+| Tutorial | Link
+| --- | ---
+| **Scenarios** | [![](/images/efs_scenario.png)](https://github.com/aws-samples/amazon-efs-workshop#section-2-scenarios) |
+
+---
