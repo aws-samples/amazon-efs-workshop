@@ -44,6 +44,8 @@ WARNING!! This workshop environment will exceed your free-usage tier. You will i
 
 - Enter the database name (e.g. **wordpress**)
 
+- Change 'Create record set (Route53)?' to **false**
+
 - Enter WordPress admin username (e.g. **administrator**)
 
 - Enter WordPress admin username password (e.g. **Adm!nPas$W04d**)
