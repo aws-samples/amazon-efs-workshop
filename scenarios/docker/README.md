@@ -267,3 +267,13 @@ the **Delete Stack** action in the [CloudFormation
 page](https://us-east-2.console.aws.amazon.com/cloudformation/home?region=us-east-2#/stacks?filter=active&tab=outputs).
 
 ![](media/ecb608fe7f8c47d12635e7183eb11413.png)
+
+---
+## Next Scenarios
+### Click on the link below to pick a scenario
+
+| Tutorial | Link
+| --- | ---
+| **Scenarios** | [![](/images/efs_scenario.png)](https://github.com/aws-samples/amazon-efs-workshop#section-2-scenarios) |
+
+---
