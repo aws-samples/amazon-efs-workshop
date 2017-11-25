@@ -46,6 +46,8 @@ WARNING!! This workshop environment will exceed your free-usage tier. You will i
 
 - Enter the database name (e.g. **drupal**)
 
+- Change 'Create record set (Route53)?' to **false**
+
 - Enter Drupal admin username (e.g. **administrator**)
 
 - Enter Drupal admin username password (e.g. **Adm!nPas$W04d**)
