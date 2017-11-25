@@ -319,3 +319,12 @@ We're going to remove resources in the reverse order from which they were create
 
 **Step 6:** Repeat this step for the *magento-vpc* stack created during *Step 1* of this lab.
 
+---
+## Next Scenarios
+### Click on the link below to pick a scenario
+
+| Tutorial | Link
+| --- | ---
+| **Scenarios** | [![](/images/efs_scenario.png)](https://github.com/aws-samples/amazon-efs-workshop#section-2-scenarios) |
+
+---
