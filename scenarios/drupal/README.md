@@ -286,6 +286,17 @@ Review the template here [aws-refarch-drupal-05-route53.yaml](templates/aws-refa
 If you found yourself wishing this set of frequently asked questions had an answer for a particular problem, please [submit a pull request](https://help.github.com/articles/creating-a-pull-request-from-a-fork/). The chances are that others will also benefit from having the answer listed here.
 
 
+---
+## Next Scenarios
+### Click on the link below to pick a scenario
+
+| Tutorial | Link
+| --- | ---
+| **Scenarios** | [![](/images/efs_scenario.png)](https://github.com/aws-samples/amazon-efs-workshop#section-2-scenarios) |
+
+---
+
+
 ## License
 
 Portions copyright.
