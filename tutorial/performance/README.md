@@ -61,7 +61,24 @@ WARNING!! This tutorial environment will exceed your free-usage tier. You will i
 
 ### Launch the AWS CloudFormation Stack
 
-Click the  ![cloudformation-launch-stack](/images/deploy_to_aws.png) link below to create the AWS CloudFormation stack in your account and desired AWS region. This region must an existing Amazon EFS file system which you will use with this tutorial.
+Click the  ![cloudformation-launch-stack](/images/deploy_to_aws.png) link below to create the AWS CloudFormation stack in your account and desired AWS region. This region must an existing Amazon EFS file system which you will use with this tutorial. Use the following parameters and the screenshot below as a guide to enter the appropriate AWS CloudFormation parameter values.
+
+#### Parameters
+
+- Use the Amazon EFS file system id from the file system created in the previous tutorial **Create File System Tutorial**
+
+- Select an existing Amazon EC2 key pair
+
+- Select the default security group of the VPC created in the previous tutorial **Create File System Tutorial** 
+
+- Select the three public subnets (e.g. **Public Subnet 1**, **Public Subnet 2**, **Public Subnet 3**)
+
+- Use all other default parameter values
+
+---
+![](/images/efs_performance_parameters.png)
+
+---
 
 | AWS Region Code | Name | Launch |
 | --- | --- | --- 
@@ -74,7 +91,6 @@ Click the  ![cloudformation-launch-stack](/images/deploy_to_aws.png) link below 
 
 After launching the AWS CloudFormation Stack above, you should see three Amazon EC2 instances running in your VPC.  Each instance **Name** tag will change from "EFS Performance Tutorial - Launching..." to "EFS Performance Tutorial - Ready". Wait for the **Name** tag of each instance to read "EFS Performance Tutorial - Ready" before continuing.
 
-![](https://s3.amazonaws.com/aws-us-east-1/tutorial/efs-performance-tutorial-ec2-console-screenshot.png)
 
 ## Section 1
 ### Compare the network performance of different EC2 instance types accessing EFS
