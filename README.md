@@ -54,7 +54,7 @@ Click on the ![](/images/efs_scenario.png) link below to go to the specific scen
 | Drupal | [![](/images/efs_scenario.png)](/scenarios/drupal) |
 | Magento | [![](/images/efs_scenario.png)](/scenarios/magento) |
 | Atlassian Jira | [![](/images/efs_scenario.png)](/scenarios/atlassian-jira) |
-| Docker | [![](/images/efs_scenario.png)](/docker) |
+| Docker | [![](/images/efs_scenario.png)](/scenarios/docker) |
 
 
 
