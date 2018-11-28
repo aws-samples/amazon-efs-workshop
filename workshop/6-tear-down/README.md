@@ -21,7 +21,7 @@ It is important to tear down and delete all the AWS resources you created during
 
 Delete the following resources:
 
-- The three Amazon EC2 instances (t3.micro, m4.large, c5.2xlarge)
+- The three Amazon EC2 instances (t2.micro, m4.large, c5.2xlarge)
 - The two Amazon EFS file systems
 - VPC peering connection
 - The scale-out CloudFormation stack
