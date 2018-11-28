@@ -1,62 +1,110 @@
 ![](https://s3.amazonaws.com/aws-us-east-1/tutorial/AWS_logo_PMS_300x180.png)
 
 ![](https://s3.amazonaws.com/aws-us-east-1/tutorial/100x100_benefit_available.png)![](https://s3.amazonaws.com/aws-us-east-1/tutorial/100x100_benefit_ingergration.png)![](https://s3.amazonaws.com/aws-us-east-1/tutorial/100x100_benefit_ecryption-lock.png)![](https://s3.amazonaws.com/aws-us-east-1/tutorial/100x100_benefit_fully-managed.png)![](https://s3.amazonaws.com/aws-us-east-1/tutorial/100x100_benefit_lowcost-affordable.png)![](https://s3.amazonaws.com/aws-us-east-1/tutorial/100x100_benefit_performance.png)![](https://s3.amazonaws.com/aws-us-east-1/tutorial/100x100_benefit_scalable.png)![](https://s3.amazonaws.com/aws-us-east-1/tutorial/100x100_benefit_storage.png)
+
+
 # **Amazon Elastic File System (Amazon EFS)**
 
-## STG406: Maximizing throughput and performance on Amazon EFS
+## Workshop
 
-### Workshop 1.0.1
+### Version 2018.11
 
-efs-ws-1.0.1
-
----
-
-© 2017 Amazon Web Services, Inc. and its affiliates. All rights reserved. This work may not be  reproduced or redistributed, in whole or in part, without prior written permission from Amazon Web Services, Inc. Commercial copying, lending, or selling is prohibited.
+efs.wrkshp.2018.11
 
 ---
 
-## Workshop Overview
+© 2018 Amazon Web Services, Inc. and its affiliates. All rights reserved. This work may not be  reproduced or redistributed, in whole or in part, without prior written permission from Amazon Web Services, Inc. Commercial copying, lending, or selling is prohibited.
 
-### Overview
+Errors or corrections? Email us at [darrylo@amazon.com](mailto:darrylo@amazon.com).
 
-This will show solutions architects how to take advantage of a petabyte scale distributed file system for various application workloads like analytics, web serving & content management, backup and disaster recovery, enterprise applications, and Docker containers.
+---
 
-This workshop will cover how to best use a shared distributed file system to support ecommerce applications like Magento, content management systems like WordPress and Drupal, shared storage environments for your Docker containers, simplify the setup and management of Atlassian Jira, use it as a backup target for databases, and parallelize the migration of data into and out of an Amazon EFS file system.
-
-### Prerequisites
-
-You will be using your own AWS account for all workshop activities.
-WARNING!! This tutorial environment will exceed your free-usage tier. You will incur charges as a result of stepping through this workshop. Terminate all resources and delete all files on the EFS file systems that were created during this workshop so you don’t continue to incur ongoing charges.
-
-### The Workshop
-
-This workshop is divided into two sections. The first section is the Amazon EFS tutorial and designed to help you better understand the performance characteristics of Amazon Elastic File System (Amazon EFS) and how parallelism, I/O size, and Amazon EC2 instance types have a profound effect on file system performance. The second section is the scenarios section and is designed to help you build workloads using Wordpress, Drupal, Magento, Atlassian Jira, and Docker leveraging Amazon EFS.
+### Table of Contents  
 
 
+[Prerequisites](#prerequisites)
 
-### Section 1: Tutorial
+[1. Create](#1-create)
 
-Click on the ![](/images/efs_tutorial.png) link below to go to the Amazon EFS tutorials. Once you've finished all tutorials move on to **Section 2: Scenarios**.
+[2. Monitor](#2-monitor)
 
-| Tutorial | Go to |
-| --- | --- 
-| Amazon EFS | [![](/images/efs_tutorial.png)](/tutorial) |
+[3. Performance](#3-performance) 
 
+[4. Accessible](#4-accessible)
 
-
-### Section 2: Scenarios
-
-Click on the ![](/images/efs_scenario.png) link below to go to the specific scenario. Once you've finished one scenario, move on to another.
-
-| Scenario | Go to |
-| --- | --- 
-| WordPress | [![](/images/efs_scenario.png)](/scenarios/wordpress) |
-| Drupal | [![](/images/efs_scenario.png)](/scenarios/drupal) |
-| Magento | [![](/images/efs_scenario.png)](/scenarios/magento) |
-| Atlassian Jira | [![](/images/efs_scenario.png)](/scenarios/atlassian-jira) |
-| Docker | [![](/images/efs_scenario.png)](/scenarios/docker) |
+[5. Scale-out](#5-scale-out)
 
 
+---
+
+### Workshop
+
+This workshop designed to help you better understand the performance characteristics of Amazon Elastic File System (Amazon EFS) and how parallelism, I/O size, and Amazon EC2 instance types affects file system IOPS and throughput. You will also gain an understanding of the different performance and throughput modes a file system can be using.
+
+### Prerequisites [optional]
+This section is an AWS Cloudformation template that will create two Amazon VPCs with Internet gateways, security groups, and routing tables to create isolate networks for this workshop. It is highly recommended to setup these prerequisites. If you decide to use your own VPCs, make sure they don't have overlapping CIDR blocks, allow traffic within the default security group, and allow SSH access from your laptop.
+
+Click on the link below to go to the **Pre-requisites** section. Once you've finished that section, move on to **Create**.
+
+| [**Prerequisites**](/workshop/0-prerequisites)
+| :---
+
+### 1. Create
+This section is a guide to create two Amazon EFS file systems using default performance and throughput modes.
+
+Click on the link below to go to the **Create** workshop. Once you've finished that workshop move on to **Monitor**.
+
+| [**Create**](/workshop/1-create)
+| :---
+
+### 2. Monitor
+This section is a guide to setup an AWS CloudWatch dashboard with widgets to help monitor how your workload is driving an Amazon EFS file system. Once you've finished that workshop, move on to **Performance**.
+
+Click on the link below to go to the **Monitor** section. 
+
+| [**Monitor**](/workshop/2-monitor)
+| :---
+
+### 3. Performance
+This section is a set of scripts that will demonstrate:
+- different instance types provide different levels of network performance when accessing a file system
+- different I/O sizes (block sizes) and sync() freqencies (the rate data is persisted to disk) effects file system throughput
+- increasing the number of threads accessing a file system will increase IOPS and throughput
+
+Click on the link below to go to the **Performance** workshop. Once you've finished that workshop move on to **Accessible**.
+
+| [**Performance**](/workshop/3-performance) |
+| :---
+
+### 4. Accessible
+This section is a set of steps to test accessibility over a VPC-peering connection and from Amazon Workspaces.
+
+Click on the link below to go to the **Accessible** workshop. Once you've finished that workshop move on to **Scale-out**.
+
+| [**Accessible**](/workshop/4-accessible) |
+| :---
+
+### 5. Scale-out
+This section is a Cloudformation template that will create an Amazon EC2 spot fleet and download objects in parallel from an Amazon S3 bucket.
+
+Click on the link below to go to the **Scale-out** workshop.
+
+| [**Scale-out**](/workshop/5-scale-out) |
+| :---
+
+### 6. Tear-down
+This section will remind you to delete all the AWS resources you created for this workshop.
+
+Click on the link below to go to the **Tear-down** workshop.
+
+| [**Tear-down**](/workshop/6-tear-down) |
+| :---
+
+---
+
+## Troubleshooting
+
+For feedback, suggestions, or corrections, please email me at [darrylo@amazon.com](mailto:darrylo@amazon.com).
 
 ## License
 
