@@ -146,6 +146,10 @@ This section will demonstrate that not all Amazon EC2 instance types are created
 ### 2.1.  SSH into one Amazon EC2 instance
 
 - Start with the t2.micro instance
+  - Pro tip: If you are unsure of which instance type you're connected to (considering you have all of them opened) and can't be bothered doing a map between the IP addresses on the terminal and the EC2 console then you can run this:
+  ```
+  echo $(curl -s http://169.254.169.254/latest/meta-data/instance-type)
+  ```
 - Run the command in 2.2. below and wait for it to complete. Continue to watch the outgoing network metric.
 - What happened after ~15GB was written?
 - Disconnect from that instance and do the same thing for the m4.large instance then the c5.2xlarge instance
