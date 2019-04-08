@@ -99,6 +99,6 @@ For feedback, suggestions, or corrections, please email me at [darrylo@amazon.co
 
 ## License Summary
 
-This sample code is made available under a modified MIT license. See the LICENSE file.
+This sample code is made available under the MIT-0 license. See the LICENSE file.
 
 
