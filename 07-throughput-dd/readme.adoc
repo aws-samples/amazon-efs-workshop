@@ -1,0 +1,216 @@
+= Parallelism and throughput using dd
+:toc:
+:icons:
+:linkattrs:
+:imagesdir: ../resources/images
+
+
+== Summary
+
+This section will demonstrate how increasing the number of threads accessing an EFS file system will significantly improve throughput.
+
+== Duration
+
+NOTE: It will take approximately 15 minutes to complete this section.
+
+
+== Step-by-step Guide
+
+=== Different IO sizes and sync frequencies
+
+IMPORTANT: Read through all steps below and watch the quick video before continuing.
+
+image::throughput-dd.gif[align="left", width=600]
+
+. Return to the browser-based SSH connection of the *EFS Workshop Linux Instance 2* - m5n.2xlarge instance.
++
+TIP: If the SSH connection has timed out, e.g. the session is unresponsive, refresh or reload the current browser tab. If that doesn't resolve the issue, close the browser-based SSH connection window and create a new one. Return to the link:https://console.aws.amazon.com/ec2/[Amazon EC2] console. *_Click_* the radio button next to the instance with the name *EFS Workshop Linux Instance 2*. *_Click_* the *Connect* button. *_Click_* the radio button next to  *EC2 Instance Connect (browser-based SSH connection)*. Leave the default user name as *ec2-user* and *_click_* *Connect*.
++
+
+
+. *_Run_* this command to generate 2GB of data on the EBS volume using a 1 MB block size and issuing a sync once at the end to ensure everything is written to disk.
++
+[source,bash]
+----
+time dd if=/dev/zero of=/ebs/dd/2G-dd-$(date +%Y%m%d%H%M%S.%3N) bs=1M count=2048 status=progress conv=fsync
+----
++
+. Record these results somewhere (e.g. your favorite text editor).
+. How long did it take? - 15.826s
+
+
+. *_Run_* this command to generate 2GB of data on the EFS file system using a 1 MB block size and issuing a sync once at the end to ensure everything is written to disk.
++
+[source,bash]
+----
+time dd if=/dev/zero of=/efs/dd/2G-dd-$(date +%Y%m%d%H%M%S.%3N) bs=1M count=2048 status=progress conv=fsync
+----
++
+. Record these results somewhere (e.g. your favorite text editor).
+. How long did it take? - 11.516s
+
+
+. *_Run_* this command to generate 2GB of data on the EBS volume using a 16 MB block size and issuing a sync once at the end to ensure everything is written to disk.
++
+[source,bash]
+----
+time dd if=/dev/zero of=/ebs/dd/2G-dd-$(date +%Y%m%d%H%M%S.%3N) bs=16M count=128 status=progress conv=fsync
+----
++
+. Record these results somewhere (e.g. your favorite text editor).
+. How long did it take? - 17.757s
+
+
+. *_Run_* this command to generate 2GB of data on the EFS file system using a 16 MB block size and issuing a sync once at the end to ensure everything is written to disk.
++
+[source,bash]
+----
+time dd if=/dev/zero of=/efs/dd/2G-dd-$(date +%Y%m%d%H%M%S.%3N) bs=16M count=128 status=progress conv=fsync
+----
++
+. Record these results somewhere (e.g. your favorite text editor).
+. How long did it take? - 11.611s
+
+
+. *_Run_* this command to generate 2GB of data on the EBS volume using a 1 MB block size and issuing a sync after each block to ensure each block is written to disk.
++
+[source,bash]
+----
+time dd if=/dev/zero of=/ebs/dd/2G-dd-$(date +%Y%m%d%H%M%S.%3N) bs=1M count=2048 status=progress oflag=sync
+----
++
+. Record these results somewhere (e.g. your favorite text editor).
+. How long did it take? - 15.002s
+
+
+. *_Run_* this command to generate 2GB of data on the EFS file system using a 1 MB block size and issuing a sync once at the end to ensure everything is written to disk.
++
+[source,bash]
+----
+time dd if=/dev/zero of=/efs/dd/2G-dd-$(date +%Y%m%d%H%M%S.%3N) bs=1M count=2048 status=progress oflag=sync
+----
++
+. Record these results somewhere (e.g. your favorite text editor).
+. How long did it take? - 1m26.699s
+. Why did this take so long?
+* A sync operation that persists data and metadata to disk is issued after everyone 1MB block, so there are 2048 sync operations issues. The distributed data storage design of Amazon EFS introduces slightly higher latencies per file system operation, and because this dd command is a serial operation, it needs to wait for each 1MB block to persist to disk before starting to write the next 1MB block. This type of operation magnifies the higher latencies of Amazon EFS.
+
+
+. *_Run_* this command to generate 2GB of data on the EBS volume using a 16 MB block size and issuing a sync after each block to ensure each block is written to disk.
++
+[source,bash]
+----
+time dd if=/dev/zero of=/ebs/dd/2G-dd-$(date +%Y%m%d%H%M%S.%3N) bs=16M count=128 status=progress oflag=sync
+----
++
+. Record these results somewhere (e.g. your favorite text editor).
+. How long did it take? - 15.002s
+
+
+. *_Run_* this command to generate 2GB of data on the EFS file system using a 16 MB block size and issuing a sync once at the end to ensure everything is written to disk.
++
+[source,bash]
+----
+time dd if=/dev/zero of=/efs/dd/2G-dd-$(date +%Y%m%d%H%M%S.%3N) bs=16M count=128 status=progress oflag=sync
+----
++
+. Record these results somewhere (e.g. your favorite text editor).
+. How long did it take? - 30.574s
+. Is there a significant duration difference between the commands writing to the EBS volume?
+. Why not?
+* The latency per file system operation is very low so the number of sync operations doesn't make a significant difference.
+. Why is there such a duration variance between the commands writing to the EFS file system?
+. The distributed data storage design of Amazon EFS introduces slightly higher latencies per file system operation, and because this dd command is a serial operation, it needs to wait for each block to persist to disk before starting to write the next block. Less sync operations increases achievable throughput.
+
+
+=== Different levels of parallelism
+
+IMPORTANT: Read through all steps below and watch the quick video before continuing.
+
+image::throughput-dd.gif[align="left", width=600]
+
+. *_Run_* this command to generate 2GB of data on the EBS volume using 4 threads in parallel and a 1 MB block size, issuing a sync after each block to ensure everything is written to disk.
++
+[source,bash]
+----
+time seq 1 4 | parallel --will-cite -j 4 dd if=/dev/zero of=/ebs/dd/2G-dd-$(date +%Y%m%d%H%M%S.%3N)-{} bs=1M count=512 oflag=sync
+----
++
+. Record these results somewhere (e.g. your favorite text editor).
+. How long did it take? - 15.083s
+
+. *_Run_* this command to generate 2GB of data on the EFS file system using 4 threads in parallel and a 1 MB block size, issuing a sync after each block to ensure everything is written to disk.
++
+[source,bash]
+----
+time seq 1 4 | parallel --will-cite -j 4 dd if=/dev/zero of=/efs/dd/2G-dd-$(date +%Y%m%d%H%M%S.%3N)-{} bs=1M count=512 oflag=sync
+----
++
+. Record these results somewhere (e.g. your favorite text editor).
+. How long did it take? - 0m23.292s
+. Compare this to the results above when you wrote to the EFS file system using 1 thread and a 1 MB block size, issuing a sync after each block. Is there a big difference? Why?
+
+
+. *_Run_* this command to generate 2GB of data on the EBS volume using 16 threads in parallel and a 1 MB block size, issuing a sync after each block to ensure everything is written to disk.
++
+[source,bash]
+----
+time seq 1 16 | parallel --will-cite -j 16 dd if=/dev/zero of=/ebs/dd/2G-dd-$(date +%Y%m%d%H%M%S.%3N)-{} bs=1M count=128 oflag=sync
+----
++
+. Record these results somewhere (e.g. your favorite text editor).
+. How long did it take? - 15.093s
+
+. *_Run_* this command to generate 2GB of data on the EFS file system using 16 threads in parallel and a 1 MB block size, issuing a sync after each block to ensure everything is written to disk.
++
+[source,bash]
+----
+time seq 1 16 | parallel --will-cite -j 16 dd if=/dev/zero of=/efs/dd/2G-dd-$(date +%Y%m%d%H%M%S.%3N)-{} bs=1M count=128 oflag=sync
+----
++
+. Record these results somewhere (e.g. your favorite text editor).
+. How long did it take? - 0m10.581s
+. Compare this to the results above when you wrote to the EFS file system using 1 thread and a 1 MB block size, issuing a sync after each block. Is there a big difference? Why?
+. Review the results of all the EBS tests. Was there a significant difference between any of them?
+. Review the results of all the EFS tests. Why was there a significant difference between them?
+. Where you able to achieve higher overall throughput writting to an EFS file system than a local EBS volume?
+
+* The following table and graphs show the sample results of these tests. Look how increasing the size of the IO (reducing sync operations) and increasing the number of threads (increasing parallelism) impacts the throughput and duration.
+
++
+
+|==============================================================================================
+| Storage | Threads | Data size (MB) | Block size (MB) | Duration (seconds) | Throughput (MB/s)
+| EBS     | 1       | 2048           | 1               | 15.002             | 136.5
+| EFS     | 1       | 2048           | 1               | 86.699             | 23.6
+| EBS     | 1       | 2048           | 16              | 15.002             | 136.5
+| EFS     | 1       | 2048           | 16              | 30.574             | 67.0
+| EBS     | 4       | 2048           | 1               | 15.083             | 135.8
+| EFS     | 4       | 2048           | 1               | 23.292             | 87.9
+| EBS     | 16      | 2048           | 1               | 15.093             | 135.7
+| EFS     | 16      | 2048           | 1               | 10.581             | 193.6
+|==============================================================================================
+
+--
+{empty} +
+{empty} +
+[.left]
+.IOPS
+image::throughput-dd-throughput-graph.png[450, scaledwidth="75%"]
+{empty} +
+{empty} +
+[.left]
+.Duration
+image::throughput-dd-duration-graph.png[450, scaledwidth="75%"]
+--
+
+
+== Next section
+
+Click the link below to go to the next section.
+
+image::throughput-ior.png[link=../08-throughput-ior, align="left",width=420]
+
+
+
+

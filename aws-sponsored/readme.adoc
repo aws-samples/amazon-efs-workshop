@@ -1,0 +1,17 @@
+= Amazon EFS AWS Sponsored Workshops
+:icons:
+:linkattrs:
+:imagesdir: ../resources/images
+
+image:efs-aws-logos.png[align="left",width=420]
+
+This is workshop designed for architects and engineers who would like to learn more about Amazon Web Services (AWS) full-managed Network File System (NFS) service - link:https://aws.amazon.com/efs/[Amazon EFS].
+
+Click the link below to access the type of AWS sponsored workshop you want to run, **Amazon EFS**.
+
+[cols="1"]
+|===
+a|image::efs-as-workshop.png[align="left",width=440,link=../01-access-as-environment/]
+|===
+
+NOTE: You will incur charges as you go through either of these workshops, as the resources launched will exceed the link:http://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/free-tier-limits.html[limits of AWS free tier].

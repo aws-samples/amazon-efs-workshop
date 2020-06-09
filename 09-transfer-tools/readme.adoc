@@ -1,0 +1,284 @@
+= Transfer tools
+:toc:
+:icons:
+:linkattrs:
+:imagesdir: ../resources/images
+
+
+== Summary
+
+This section will compare and demonstrate how different file transfer tools affect performance when accessing an EFS file system.
+
+
+== Duration
+
+NOTE: It will take approximately 15 minutes to complete this section.
+
+
+== Step-by-step Guide
+
+=== Transfer tools
+
+IMPORTANT: Read through all steps below and watch the quick video before continuing.
+
+image::transfer-tools.gif[align="left", width=600]
+
+. Return to the browser-based SSH connection of the *EFS Workshop Linux Instance 2* instance.
++
+TIP: If the SSH connection has timed out, e.g. the session is unresponsive, refresh or reload the current browser tab. If that doesn't resolve the issue, close the browser-based SSH connection window and create a new one. Return to the link:https://console.aws.amazon.com/ec2/[Amazon EC2] console. *_Click_* the radio button next to the instance with the name *EFS Workshop Linux Instance 2*. *_Click_* the *Connect* button. *_Click_* the radio button next to  *EC2 Instance Connect (browser-based SSH connection)*. Leave the default user name as *ec2-user* and *_click_* *Connect*.
++
+. *_Run_* the following command in the browser-based SSH connection window to generate new sample data of five thousand 1 MB files totaling approx. 5 GB of data. This will be stored on an the attached EBS GP2 volume.
+* This section will use different transfer tools to copy this sample data from EBS to EFS.
++
+[source,bash]
+----
+sudo rm /ebs/data-1m/* -r
+sudo rm /ebs/smallfile/* -r
+
+sudo python /home/ec2-user/smallfile/smallfile_cli.py --operation create --threads 1 --file-size 1024 --files 5000 --same-dir Y --dirs-per-dir 1024 --hash-into-dirs Y --files-per-dir 10240 --pause 500 --top /ebs/smallfile
+
+cp -R /ebs/smallfile/file_srcdir/ /ebs/data-1m/
+
+----
++
+. Run this command to validate the total size and count of files to be copied.
++
+[source,bash]
+----
+tree --du -h /ebs/data-1m
+
+----
++
+* The ouput should look similar to this:
++
+[source,bash]
+----
+    ├── [1.0M]  _ip-10-0-0-11_00_994_
+    ├── [1.0M]  _ip-10-0-0-11_00_995_
+    ├── [1.0M]  _ip-10-0-0-11_00_996_
+    ├── [1.0M]  _ip-10-0-0-11_00_997_
+    ├── [1.0M]  _ip-10-0-0-11_00_998_
+    └── [1.0M]  _ip-10-0-0-11_00_999_
+
+ 4.9G used in 1 directory, 5000 files
+----
+
+
+=== Rsync
+
+rsync is a fast, versatile, remote (and local) file-copying tool. Learn more about rsync - link:https://linux.die.net/man/1/rsync[https://linux.die.net/man/1/rsync].
+
+. *_Run_* the following rsync command in the browser-based SSH connection window to see how long it takes to copy the sample dataset from EBS to EFS. Caches are dropped so all reads come from the EBS volume and not memory.
++
+[source,bash]
+----
+instance_id=$(curl -s http://169.254.169.254/latest/meta-data/instance-id)
+sudo bash -c 'echo 3 > /proc/sys/vm/drop_caches'
+time rsync -r /ebs/data-1m/ /efs/rsync/${instance_id}
+
+----
++
+* How long did it take for the copy?
+* The ouput of the script should look similar to this:
++
+[source,bash]
+----
+real	5m59.205s
+user	0m19.346s
+sys	0m6.019s
+----
++
+* Calculate the average throughput achieved. Divide 5000 MB by the number of seconds it took for the copy, e.g. 5000(MB)÷359(seconds)=13.93MB/s.
+* Why is rsync so slow?
+** rync is a single-threaded copy tool that is very chatty over the network. These two attributes don't make rsync a good tool to use to copy data to and from an EFS file system because it doesn't take advantage of the distributed data storage design of EFS.
+. Run this command to validate the total size and count of the files copied.
++
+[source,bash]
+----
+tree --du -h /efs/rsync/${instance_id}
+
+----
+
+=== Copy (cp)
+
+. *_Run_* the following cp command to see how long it takes to copy the sample dataset from EBS to EFS. Caches are dropped so all reads come from the EBS volume and not memory.
++
+[source,bash]
+----
+sudo bash -c 'echo 3 > /proc/sys/vm/drop_caches'
+time cp -r /ebs/data-1m/* /efs/cp/${instance_id}
+
+----
++
+* How long did it take for the copy?
+* The ouput of the script should look similar to this:
++
+[source,bash]
+----
+real	4m34.786s
+user	0m0.048s
+sys	0m4.584s
+----
++
+* Calculate the average throughput achieved. Divide 5000 MB by the number of seconds it took for the copy, e.g. 5000(MB)÷274(seconds)=18.25MB/s.
+* Why is so slow but faster than rsync?
+  * cp is also a single-threaded copy tool but isn't as chatty over the network as rsync, to throughput is faster.
+. *_Run_* the following command to validate the total size and count of the files copied.
++
+[source,bash]
+----
+tree --du -h /efs/cp/${instance_id}
+
+----
+
+
+=== fpsync
+
+fpsync is a tool included in fpart and is a powerful shell script that wraps fpart and rsync to launch multiple transfer jobs in parallel. Learn more about fpsync - link:https://github.com/martymac/fpart#fpsync-[https://github.com/martymac/fpart#fpsync-].
+
+Copyright (c) 2011-2020 Ganael LAPLANCHE <ganael.laplanche@martymac.org>
+
+. *_Run_* the following fpsync command to see how long it takes to copy the sample dataset from EBS to EFS. Caches are dropped so all reads come from the EBS volume and not memory.
+* The first command sets the $threads variable to 4 threads per virtual cpu (vcpu). This will be used by the multi-threaded transfer tools.
++
+[source,bash]
+----
+threads=$(($(nproc --all) * 4))
+sudo bash -c 'echo 3 > /proc/sys/vm/drop_caches'
+time fpsync -n ${threads} -v /ebs/data-1m/ /efs/fpsync/${instance_id}
+
+----
++
+* How long did it take for the copy?
+* The ouput of the script should look similar to this:
++
+[source,bash]
+----
+1591078644 ===> Job name: 1591078644-21223
+1591078645 ===> Analyzing filesystem...
+1591078646 ===> Waiting for sync jobs to complete...
+1591078808 <===   Parts done: 3/3 (100%), remaining: 0
+1591078808 <=== Time elapsed: 163s, remaining: ~0s (~54s/job)
+1591078808 <=== Fpsync completed without error.
+
+real	2m43.147s
+user	0m20.845s
+sys	0m7.651s
+----
++
+* Calculate the average throughput achieved. Divide 5000 MB by the number of seconds it took for the copy, e.g. 5000(MB)÷163(seconds)=30.67MB/s.
+. *_Run_* the following command to validate the total size and count of the files copied.
++
+[source,bash]
+----
+tree --du -h /efs/fpsync/${instance_id}
+
+----
+
+
+=== GNU Parallel + cp
+
+GNU Parallel is an amazing tool that parallelizes single-threaded commands. Learn more about GNU Parallel - link:https://www.gnu.org/software/parallel/[https://www.gnu.org/software/parallel/]. O. Tange (2018): GNU Parallel 2018, March 2018, https://doi.org/10.5281/zenodo.1146014.
+
+. *_Run_* the following cp + GNU parallel command to see how long it takes to copy the sample dataset from EBS to EFS. Caches are dropped so all reads come from the EBS volume and not memory.
++
+[source,bash]
+----
+sudo bash -c 'echo 3 > /proc/sys/vm/drop_caches'
+time find /ebs/data-1m/. -type f | parallel --will-cite -j ${threads} cp {} /efs/parallelcp/${instance_id}
+
+----
++
+* How long did it take for the copy?
+* The ouput of the script should look similar to this:
++
+[source,bash]
+----
+real	0m38.320s
+user	0m16.115s
+sys	0m19.323s
+----
++
+* Calculate the average throughput achieved. Divide 5000 MB by the number of seconds it took for the copy, e.g. 5000(MB)÷38(seconds)=131.58MB/s.
+. *_Run_* the following command to validate the total size and count of the files copied.
++
+[source,bash]
+----
+tree --du -h /efs/parallelcp/${instance_id}
+
+----
+
+
+=== Fpart + GNU Parallel + cp
+
+Fpart is a tool that helps sort file trees and pack them into pages or partitions. Learn more about fpart - link:https://github.com/martymac/fpart/[https://github.com/martymac/fpart]. Copyright (c) 2011-2020 Ganael LAPLANCHE <ganael.laplanche@martymac.org>
+
+GNU Parallel is an amazing tool that parallelizes single-threaded commands. Learn more about GNU Parallel - link:https://www.gnu.org/software/parallel/[https://www.gnu.org/software/parallel/]. O. Tange (2018): GNU Parallel 2018, March 2018, https://doi.org/10.5281/zenodo.1146014.
+
+. *_Run_* the following cp + GNU parallel command to see how long it takes to copy the sample dataset from EBS to EFS. Caches are dropped so all reads come from the EBS volume and not memory.
++
+[source,bash]
+----
+cd /ebs/data-1m/
+time fpart -z -n 1 -o /home/ec2-user/fpart-files-to-transfer .
+time parallel --will-cite -j ${threads} --pipepart --round-robin --delay .1 --block 1M -a /home/ec2-user/fpart-files-to-transfer.0 sudo "cpio -dpmL /efs/parallelcpio/${instance_id}"
+
+----
++
+* How long did it take for the copy?
+* The ouput of the script should look similar to this:
++
+[source,bash]
+----
+319488 blocks
+319488 blocks
+319488 blocks
+319488 blocks
+319488 blocks
+
+real	0m33.113s
+user	0m7.065s
+sys	0m14.830s
+----
++
+* Calculate the average throughput achieved. Divide 5000 MB by the number of seconds it took for the copy, e.g. 5000(MB)÷33(seconds)=151.52MB/s.
+. *_Run_* the following command to validate the total size and count of the files copied.
++
+[source,bash]
+----
+tree --du -h /efs/parallelcpio/${instance_id}
+
+----
++
+. Compare the results from the tests above.  Is there a big difference? Why?
+
+=== Test results
+
+The following table and graph show the sample results of using different transfer tools to copy 5000 1MB files (5000 MB total size) from an EBS volume to an EFS file system. Look how choosing the most effecient transfer tool impacts duration and throughput.
+
+
+|===========================================================================================
+| Tool                | Data size (MB) | File count | Duration (seconds) | Throughput (MB/s)
+| rsync               | 5000           | 5000       | 359.21             | 13.93
+| cp                  | 5000           | 5000       | 274.79             | 18.25
+| fpsync              | 5000           | 5000       | 163.14             | 30.67
+| parallel+cp         | 5000           | 5000       | 38.32              | 131.58
+| fpart+parallel+cpio | 5000           | 5000       | 33.11              | 151.52
+|===========================================================================================
+
+
+--
+{empty} +
+{empty} +
+[.left]
+.Transfer tools
+image::transfer-tool-graph.png[align="left"]
+--
+
+== Next section
+
+Click the link below to go to the next section.
+
+image::monitor-performance.png[link=../10-monitor-performance, align="left",width=420]
+
+

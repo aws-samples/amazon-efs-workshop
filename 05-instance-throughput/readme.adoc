@@ -1,0 +1,113 @@
+= Instance throughput
+:toc:
+:icons:
+:linkattrs:
+:imagesdir: ../resources/images
+
+
+== Summary
+
+This section will demonstrate how different instance types impact achievable throughput of an EFS file system.
+
+
+== Duration
+
+NOTE: It will take approximately 15 minutes to complete this section.
+
+
+== Step-by-step Guide
+
+=== Generate throughput using dd
+
+IMPORTANT: Read through all steps below and watch the quick video before continuing.
+
+image::throughput-dd.gif[align="left", width=600]
+
+. Return to the browser-based SSH connection of the *EFS Workshop Linux Instance 0* - t2.micro instance.
++
+TIP: If the SSH connection has timed out, e.g. the session is unresponsive, refresh or reload the current browser tab. If that doesn't resolve the issue, close the browser-based SSH connection window and create a new one. Return to the link:https://console.aws.amazon.com/ec2/[Amazon EC2] console. *_Click_* the radio button next to the instance with the name *EFS Workshop Linux Instance 2*. *_Click_* the *Connect* button. *_Click_* the radio button next to  *EC2 Instance Connect (browser-based SSH connection)*. Leave the default user name as *ec2-user* and *_click_* *Connect*.
++
+. *_Copy_*, *_paste_*, and *_run_* the following command in the browser-based SSH connection window to see how the Amazon EFS file system has been mounted.
++
+[source,bash]
+----
+mount -t nfs4
+
+----
++
+
+. What is the mount point of the EFS file system?
+* The output of the command should look similar to this:
++
+[source,bash]
+----
+fs-01234abc.efs.us-east-1.amazonaws.com:/ on /efs type nfs4 (rw,relatime,vers=4.1,rsize=1048576,wsize=1048576,namlen=255,hard,noresvport,proto=tcp,timeo=600,retrans=2,sec=sys,clientaddr=10.0.0.12,local_lock=none,addr=10.0.1.176,_netdev)
+----
++
+* Answer: /efs
+
+. Determine how much throughput an t2.micro instance can achieve writing to an EFS file system. *_Run_* the following script in the same browser-based SSH connection window. The last commands run nload, a real-time network monitoring tool to see incoming and outgoing network traffic.
++
+[source,bash]
+----
+time dd if=/dev/zero of=/efs/dd/17G-dd-$(date +%Y%m%d%H%M%S.%3N) bs=1M count=17408 conv=fsync &
+nload -u M
+----
++
+. Once outgoing network traffic drops to zero, the dd command has finished and you can end *nload* by pressing *control+Z*.
+. How much throughput did the instance generate at the start?
+. What happened to the throughput over the 3-4 minutes?
+. What throughput did the instance finally bottom out at?
+. Why?
+* t2 instances have variable network performance and are able achieve high levels of burst network performance for short period of time followed by consistent baseline network performance.
+. Close the browser-based SSH connection window of the *EFS Workshop Linux Instance 0* - t2.micro instance.
+
+. Return to the browser-based SSH connection of the *EFS Workshop Linux Instance 1* - m4.large instance.
++
+TIP: If the SSH connection has timed out, e.g. the session is unresponsive, refresh or reload the current browser tab. If that doesn't resolve the issue, close the browser-based SSH connection window and create a new one. Return to the link:https://console.aws.amazon.com/ec2/[Amazon EC2] console. *_Click_* the radio button next to the instance with the name *EFS Workshop Linux Instance 2*. *_Click_* the *Connect* button. *_Click_* the radio button next to  *EC2 Instance Connect (browser-based SSH connection)*. Leave the default user name as *ec2-user* and *_click_* *Connect*.
++
+. *_Copy_*, *_paste_*, and *_run_* the following command in the browser-based SSH connection window to see how the Amazon EFS file system has been mounted.
++
+[source,bash]
+----
+mount -t nfs4
+
+----
++
+
+. What is the mount point of the EFS file system?
+* The output of the command should look similar to this:
++
+[source,bash]
+----
+fs-01234abc.efs.us-east-1.amazonaws.com:/ on /efs type nfs4 (rw,relatime,vers=4.1,rsize=1048576,wsize=1048576,namlen=255,hard,noresvport,proto=tcp,timeo=600,retrans=2,sec=sys,clientaddr=10.0.0.12,local_lock=none,addr=10.0.1.176,_netdev)
+----
++
+* Answer: /efs
+
+. Determine how much throughput an m4.large instance can achieve writing to an EFS file system. *_Run_* the following script in the same browser-based SSH connection window. The last commands run nload, a real-time network monitoring tool to see incoming and outgoing network traffic.
++
+[source,bash]
+----
+time dd if=/dev/zero of=/efs/dd/17G-dd-$(date +%Y%m%d%H%M%S.%3N) bs=1M count=17408 conv=fsync &
+nload -u M
+----
++
+. Once outgoing network traffic drops to zero, the dd command has finished and you can end *nload* by pressing *control+Z*.
+. How much throughput did the instance generate at the start?
+. What happened to the throughput over the 3-4 minutes?
+. Did you see any variance in the throughput for the duration of the test?
+. Why did the t2.micro achieve much higher throughput then the m4.large at the start of the test?
+* t2 instances have variable network performance while m4.large instances have a consistent moderate network performance. Becausing EFS file systems are accessed over the network, selecting instance types with sufficient network performance will help determine how much throughput these instances can drive an EFS file system.
+. Close the browser-based SSH connection window of the *EFS Workshop Linux Instance 1*.
+
+
+== Next section
+
+Click the link below to go to the next section.
+
+image::provisioned-throughput.png[link=../06-provisioned-throughput/, align="left",width=420]
+
+
+
+

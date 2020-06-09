@@ -1,0 +1,55 @@
+= Connect to instances
+:toc:
+:icons:
+:linkattrs:
+:imagesdir: ../resources/images
+
+
+== Summary
+
+In this section you will establish connections to Linux instances you will use for the remainder of the workshop.
+
+
+== Duration
+
+NOTE: It will take approximately 5 minutes to complete this section.
+
+
+== Step-by-step Guide
+
+=== Connect to Linux instances
+
+IMPORTANT: Read through all steps below and watch the quick video before continuing.
+
+image::connect-linux-instances-efs.gif[align="left", width=600]
+
+
+. Open the link:https://console.aws.amazon.com/ec2/[Amazon EC2] console.
++
+TIP: *_Context-click (right-click)_* the link above and open the link in a new tab or window to make it easy to navigate between this github workshop and AWS console.
++
+. Make sure you are in the same *AWS Region* as the workshop environment. If you need to change the *AWS Region* of the Amazon EC2 console, in the top right corner of the browswer window *_click_* the region name next to *Support* and *_click_* the appropriate *AWS Region* from the drop-down menu.
+
+. *_Click_* *Running Instances*.
+
+. *_Click_* the radio button next to the instance with the name *EFS Workshop Linux Instance 2*.
+
+. *_Click_* the *Connect* button.
+
+. *_Click_* the radio button next to *EC2 Instance Connect (browser-based SSH connection)*.
+
+* If you prefer to use another terminal emulator (e.g. Terminal, iTerm2, PUTTY, etc.), *_click_* the radio button next to *A standalone SSH client* and follow the directions in the *To access your instance:* section to establish an SSH sesstion to the EC2 instances. Throughput the workshop, please access these terminal session windows when asked to connect to the *browser-based SSH connection session* windows. You will need to *_download_* the *SSH Key* from the Event Engine Team Dashboard where you launched the AWS Console. If you're not familiar with this process of downloading an SSH key, converting a .pem file to .ppk (Windows only), and making it not public viewable (chmod 400 ee-default-keypair.pem), we recommend you continue the workshop using *browser-based SSH connection session* windows.
+
+. Leave the default user name as *ec2-user* and *_click_* *Connect*.
+
+NOTE: Throughput this workshop you will be asked to connect to *browserr-based SSH connection session* windows of three Amazon EC2 instances - *EFS Workshop Linux Instance 0*, *EFS Workshop Linux Instance 1*, *EFS Workshop Linux Instance 2*. Follow these steps for the specific EC2 instance when asked to do so.
+
+== Next section
+
+Click the link below to go to the next section.
+
+image::iops-zero-byte.png[link=../03-iops-zero-byte/, align="left",width=420]
+
+
+
+

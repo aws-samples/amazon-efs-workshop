@@ -1,0 +1,230 @@
+= IOPS 4KB Files
+:toc:
+:icons:
+:linkattrs:
+:imagesdir: ../resources/images
+
+
+== Summary
+
+This section will demonstrate how parallelism increases achievable IOPS of an EFS file system.
+
+
+== Duration
+
+NOTE: It will take approximately 10 minutes to complete this section.
+
+
+== Step-by-step Guide
+
+=== Generate 4KB files using smallfile
+
+NOTE: smallfile is a python-based distributed POSIX workload generator which can be used to quickly measure performance for a variety of metadata-intensive workloads across an entire cluster. It is an excellent tool to test file systems and I use it regularly to measure and demonstrate operation performance of Amazon EFS and Amazon FSx file systems. Learn more about smallfile from Ben England's github repo - link:https://github.com/distributed-system-analysis/smallfile[smallfile].
+
+IMPORTANT: Read through all steps below and watch the quick video before continuing.
+
+image::iops-4k.gif[align="left", width=600]
+
+. Return to the browser-based SSH connection of the *EFS Workshop Linux Instance 2* instance.
++
+TIP: If the SSH connection has timed out, e.g. the session is unresponsive, refresh or reload the current browser tab. If that doesn't resolve the issue, close the browser-based SSH connection window and create a new one. Return to the link:https://console.aws.amazon.com/ec2/[Amazon EC2] console. *_Click_* the radio button next to the instance with the name *EFS Workshop Linux Instance 2*. *_Click_* the *Connect* button. *_Click_* the radio button next to  *EC2 Instance Connect (browser-based SSH connection)*. Leave the default user name as *ec2-user* and *_click_* *Connect*.
++
+. *_Copy_*, *_paste_*, and *_run_* the following command in the browser-based SSH connection window to see how long it takes for smallfile to generate 1024 4KB files on the EFS file system.
++
+[source,bash]
+----
+job_name=$(echo $(uuidgen)| grep -o ".\{6\}$")
+prefix=$(echo $(uuidgen)| grep -o ".\{6\}$")
+path=/efs/smallfile/${job_name}
+sudo mkdir -p ${path}
+
+threads=1
+file_size=4
+file_count=1024
+operation=create
+same_dir=Y
+
+sudo python ~/smallfile/smallfile_cli.py \
+--operation ${operation} \
+--threads ${threads} \
+--file-size ${file_size} \
+--files ${file_count} \
+--same-dir ${same_dir} \
+--hash-into-dirs Y \
+--prefix ${prefix} \
+--dirs-per-dir ${file_count} \
+--files-per-dir ${file_count} \
+--top ${path}
+----
++
+
+. How many seconds did it take to generate 1024 zero-byte files on the EFS file system?
+* The ouput of the script should look similar to this:
++
+[source,bash]
+----
+host = ip-10-0-0-12,thr = 00,elapsed = 11.924979,files = 1024,records = 1024,status = ok
+total threads = 1
+total files = 1024
+total IOPS = 85
+total data =     0.004 GiB
+100.00% of requested files processed, warning threshold is  70.00
+elapsed time =    11.925
+files/sec = 85.870172
+IOPS = 85.870172
+MiB/sec = 0.335430
+----
++
+. What was the IOPS?
+. How many threads were used?
+. Were the files generated in the same directory?
+* HINT: Look at the value of the variable "--same-dir".
+. *_Copy_* the previous smallfile script to your favorite text editor. Experiment with different smallfile parameter settings. Use the table below as a guide. Test with different threads (--threads), file size (--file-size), file count (--file-count) and same directory (--same-dir).
++
+[cols="10,5"]
+|===
+| Parameter | Description
+
+| `--threads`
+a| Number of threads.
+
+| `--file-size`
+a| File size in KB.
+
+| `--file-count`
+a| Number of files per thread. For example, if you want to see how long it takes to generate 1024 files using 16 threads, change the --threads parameter to 16 and the --file-count parameter to 64 (1024÷16=64).
+
+| `--same-dir`
+a| Y will generate all files in the same direct - increasing inode contention. N will generate files in different directories, one for each thread - decreasing inode contention.
+
+|===
++
+
+* What different parameters did you test?
+* How did the different parameter options alter the results?
+* The following table and graphs show the sample results of a few tests. Look how increasing the number of threads (increasing parallelism) and writing to different subdirectories (decreasing inode contention) impacts the IOPS and duration.
+
++
+[cols="3,3,2,3,3,3,3",options="header"]
+|===
+|Threads |File size (KB) |File count (per thread) |File count (total) |Same directory |Duration (seconds) |IOPS
+
+| 1
+| 4
+| 1024
+| 1024
+| Y
+| 11.369
+| 90.066095
+
+| 2
+| 4
+| 512
+| 1024
+| Y
+| 5.820
+| 176.009550
+
+| 4
+| 4
+| 256
+| 1024
+| Y
+| 5.883
+| 174.591562
+
+| 8
+| 4
+| 128
+| 1024
+| Y
+| 5.882
+| 175.117492
+
+| 16
+| 4
+| 64
+| 1024
+| Y
+| 5.629
+| 184.055531
+
+| 32
+| 4
+| 32
+| 1024
+| Y
+| 5.641
+| 186.835993
+
+| 1
+| 4
+| 1024
+| 1024
+| N
+| 11.958
+| 85.633895
+
+| 2
+| 4
+| 512
+| 1024
+| N
+| 5.452
+| 188.621103
+
+| 4
+| 4
+| 256
+| 1024
+| N
+| 2.755
+| 372.936600
+
+| 8
+| 4
+| 128
+| 1024
+| N
+| 1.390
+| 746.051127
+
+| 16
+| 4
+| 64
+| 1024
+| N
+| 0.819
+| 1281.790673
+
+| 32
+| 4
+| 32
+| 1024
+| N
+| 0.535
+| 1973.441341
+
+|===
+{empty} +
+{empty} +
+--
+[.left]
+.IOPS
+image::iops-4kb-iops-graph.png[450, scaledwidth="75%"]
+{empty} +
+{empty} +
+[.left]
+.Duration
+image::iops-4kb-duration-graph.png[450, scaledwidth="75%"]
+--
+
+== Next section
+
+Click the link below to go to the next section.
+
+image::instance-throughput.png[link=../05-instance-throughput, align="left",width=420]
+
+
+
+

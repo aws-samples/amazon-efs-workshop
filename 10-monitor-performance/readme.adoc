@@ -1,0 +1,78 @@
+= Monitor perforrmance
+:toc:
+:icons:
+:linkattrs:
+:imagesdir: ../resources/images
+
+
+== Summary
+
+This section will demonstrate how to monitor the performance of an Amazon EFS file system using Amazon CloudWatch.
+
+
+== Duration
+
+NOTE: It will take approximately 10 minutes to complete this section.
+
+
+== Step-by-step Guide
+
+=== Monitor performance
+
+IMPORTANT: Read through all steps below and watch the quick video before continuing.
+
+image::monitor-performance.gif[align="left", width=600]
+
+. Return to the browser-based SSH connection of the *EFS Workshop Linux Instance 2*.
++
+TIP: If the SSH connection has timed out, e.g. the session is unresponsive, refresh or reload the current browser tab. If that doesn't resolve the issue, close the browser-based SSH connection window and create a new one. Return to the link:https://console.aws.amazon.com/ec2/[Amazon EC2] console. *_Click_* the radio button next to the instance with the name *EFS Workshop Linux Instance 2*. *_Click_* the *Connect* button. *_Click_* the radio button next to  *EC2 Instance Connect (browser-based SSH connection)*. Leave the default user name as *ec2-user* and *_click_* *Connect*.
++
+. *_Run_* the following IOR command to generate throughput against the EFS file system.
++
+[source,bash]
+----
+module load mpi/openmpi-x86_64
+sudo bash -c 'echo 3 > /proc/sys/vm/drop_caches'
+mpirun --npernode 64 --oversubscribe ior --posix.odirect -t 1m -b 1m -s 1024 -g -v -w -r -i 2 -u -F -k -T 300 -o /efs/ior/ior.bin
+
+----
++
+. While the above script is running in the browser-based SSH connection window, return to the Amazon EC2 console *_click_* *Services* in the top right are of the window.
+. *_Context-click(right-click)_* *CloudWatch* which is under the *Management & Governance* section and *_click_* *Open link in new tab*.
+. *_Click_* the new tab that was just opened to go to the *Amazon CloudWatch console*.
+. *_Click_* *Dashboard* in the left frame.
+. *_Click_* the pre-created dashboard. The name of the dashboard should use the <region>_<file-system-id> naming convention.
+*  The name should be similar to this:
++
+[source,bash]
+----
+us-east-1_fs-0123abdc
+
+----
++
+. Change the time window for all the widgets. *_Click_* *1h* in the top right of the window.
+. *_Move_* the cursor over lines of graphs in different widgets. Examine the information available from all the widgets during the workshop. Notice the time indicator line appears in all widgets.
+.
+* The easy way to understand how hard your workload is driving the file system is by monitoring the metrics Amazon CloudWatch collects and processes. By monitoring the EFS CloudWatch metrics TotalIOBytes, DataWriteIOBytes, DataReadIOBytes, and MetaDataIOBytes in the CloudWatch console, you can see, in near real-time, your file system's performance. These metrics are sent to CloudWatch at 1-minute intervals and are available for the next 15 months, so you can access historical information about the workload that has run on your file system over time.
+
+* Metric Math, a feature within Amazon CloudWatch, makes it easy to perform math analytics on your metrics to derive additional insights into the health and performance of your AWS resources and applications.
+
+* Amazon CloudWatch dashboards are customizable home pages in the CloudWatch console that you can use to monitor resources in a single view. You can use CloudWatch dashboards to create customized views of the metrics and alarms for your AWS resources. You can have up to 500 dashboards in your AWS account. All dashboards are global, not region-specific.
+
+--
+{empty} +
+{empty} +
+[.left]
+.EFS Dashboard
+image::dashboard.png[450, scaledwidth="75%"]
+--
+
+
+== Next section
+
+Click the link below to go to the next section.
+
+image::client-access.png[link=../11-client-access, align="left",width=420]
+
+
+

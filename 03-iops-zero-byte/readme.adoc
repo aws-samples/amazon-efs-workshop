@@ -1,0 +1,240 @@
+= IOPS Zero-byte Files
+:toc:
+:icons:
+:linkattrs:
+:imagesdir: ../resources/images
+
+
+== Summary
+
+This section will demonstrate how parallelism increases achievable IOPS of an EFS file system.
+
+
+== Duration
+
+NOTE: It will take approximately 10 minutes to complete this section.
+
+
+== Step-by-step Guide
+
+=== Generate zero-byte files using touch
+
+IMPORTANT: Read through all steps below and watch the quick video before continuing.
+
+image::iops-zero-byte.gif[align="left", width=600]
+
+. Return to the browser-based SSH connection of the *EFS Workshop Linux Instance 2* instance.
++
+TIP: If the SSH connection has timed out, e.g. the session is unresponsive, refresh or reload the current browser tab. If that doesn't resolve the issue, close the browser-based SSH connection window and create a new one. Return to the link:https://console.aws.amazon.com/ec2/[Amazon EC2] console. *_Click_* the radio button next to the instance with the name *EFS Workshop Linux Instance 2*. *_Click_* the *Connect* button. *_Click_* the radio button next to  *EC2 Instance Connect (browser-based SSH connection)*. Leave the default user name as *ec2-user* and *_click_* *Connect*.
++
+. *_Copy_*, *_paste_*, and *_run_* the following command in the browser-based SSH connection window to see how the Amazon EFS file system has been mounted. The rest of the bash commands below will also be *_run_* in the same browser-based SSH connection window.
++
+[source,bash]
+----
+mount -t nfs4
+
+----
++
+
+. What is the mount point of the EFS file system?
+* The output of the command should look similar to this:
++
+[source,bash]
+----
+fs-01234abc.efs.us-east-1.amazonaws.com:/ on /efs type nfs4 (rw,relatime,vers=4.1,rsize=1048576,wsize=1048576,namlen=255,hard,noresvport,proto=tcp,timeo=600,retrans=2,sec=sys,clientaddr=10.0.0.12,local_lock=none,addr=10.0.1.176,_netdev)
+----
++
+* Answer: /efs
+
+. *_Run_* the following script to test how long it takes to genereate 1024 zero-bytes files on an EFS file system.
++
+[source,bash]
+----
+directory=$(echo $(uuidgen)| grep -o ".\{6\}$")
+mkdir -p /efs/touch/${directory}
+
+time for i in {1..1024}; do
+  touch /efs/touch/${directory}/test-1.1-$i;
+  done;
+----
++
+. How many seconds did it take to generate 1024 zero-byte files on the EFS file system?
+* The output of the script should look similar to this:
++
+[source,bash]
+----
+real0m12.545s
+user0m0.522s
+sys0m0.210s
+----
++
+. Do you consider this fast or slow?
+. Lets see how long it takes to generate the same amount of zero-bytes files on an EBS volume. *_Run_* the following script.
++
+[source,bash]
+----
+directory=$(echo $(uuidgen)| grep -o ".\{6\}$")
+mkdir -p /ebs/touch/${directory}
+
+time for i in {1..1024}; do
+  touch /ebs/touch/${directory}/test-1.1-$i;
+  done;
+----
++
+. How many seconds did it take to generate 1024 zero-byte files on the EBS volume?
+* The output of the script should look similar to this:
++
+[source,bash]
+----
+real0m0.648s
+user0m0.525s
+sys0m0.182s
+----
++
+. Do you consider this fast or slow?
+. What if you re-wrote the script to use multiple threads and ran it against the EFS file system again? *_Run_* the following script.
+* The script uses 32 threads to generate 1024 zero-byte files in parallel.
++
+[source,bash]
+----
+directory=$(echo $(uuidgen)| grep -o ".\{6\}$")
+mkdir -p /efs/touch/${directory}
+
+time seq 1 1024 | parallel --will-cite -j 32 touch /efs/touch/${directory}/test-1.2-{}
+----
++
+. How many seconds did it take to generate 1024 zero-byte files in parallel using multiple threads on the EFS file system?
+* The output of the script should look similar to this:
++
+[source,bash]
+----
+real0m6.138s
+user0m3.039s
+sys0m2.440s
+----
++
+. Why was this so much faster than the first test against the EFS file system?
+* Generating files in parallel using multiple threads takes advantage of the distributed data storage design of Amazon EFS.
+. What if you re-wrote the script again so each thread writes to its own directory in parallel? *_Run_* the following script.
+* The script uses 32 threads - each writing 32 files in its own directory - generating a total of 1024 zero-byte files (32x32=1024).
++
+[source,bash]
+----
+directory=$(echo $(uuidgen)| grep -o ".\{6\}$")
+mkdir -p /efs/touch/${directory}/{1..32}
+
+time seq 1 32 | parallel --will-cite -j 32 touch /efs/touch/${directory}/{}/test1.3{1..32}
+----
++
+. How many seconds did it take to generate 1024 zero-byte files in parallel using multiple threads on the EFS file system?
+* The output of the script should look similar to this:
++
+[source,bash]
+----
+real0m0.658s
+user0m0.186s
+sys0m0.142s
+----
++
+. Why was this so much faster than all the other tests?
+* Having each thread write to its own unique directory avoids inode contention. An inode is a data structure on Linux file systems that stores certain file and directory metadata about file system objects. Instead of the script needing to update one directory inode for every file being generated, it updates all directory inodes in parallel for every file being generated. This, along with generating files in parallel using multiple threads, helps to maximize the achievable IOPS by taking advantage of the distributed data storage design of Amazon EFS.
+. Experiment running the previous script using different numbers of threads. *_Run_* the commands in the table below. To validate the creation of all 1024 files, run the following *tree* command after each parallel touch command to get a count of all the files created.
++
+[source,bash]
+----
+tree --du -h /efs/touch/${directory}
+----
++
+[cols="3,10"]
+|===
+|*Threads* |*Parallel touch command*
+
+|1 a|
+....
+directory=$(echo $(uuidgen)\| grep -o ".\{6\}$")
+mkdir -p /efs/touch/${directory}/{1..1}
+time seq 1 1 \| parallel --will-cite -j 1 touch /efs/touch/${directory}/{}/test.{1..1024}
+....
+
+|2 a|
+....
+directory=$(echo $(uuidgen)\| grep -o ".\{6\}$")
+mkdir -p /efs/touch/${directory}/{1..2}
+time seq 1 2 \| parallel --will-cite -j 2 touch /efs/touch/${directory}/{}/test.{1..512}
+....
+
+|4 a|
+....
+directory=$(echo $(uuidgen)\| grep -o ".\{6\}$")
+mkdir -p /efs/touch/${directory}/{1..4}
+time seq 1 4 \| parallel --will-cite -j 4 touch /efs/touch/${directory}/{}/test.{1..256}
+....
+
+|8 a|
+....
+directory=$(echo $(uuidgen)\| grep -o ".\{6\}$")
+mkdir -p /efs/touch/${directory}/{1..8}
+time seq 1 8 \| parallel --will-cite -j 8 touch /efs/touch/${directory}/{}/test.{1..128}
+....
+
+|16 a|
+....
+directory=$(echo $(uuidgen)\| grep -o ".\{6\}$")
+mkdir -p /efs/touch/${directory}/{1..16}
+time seq 1 16 \| parallel --will-cite -j 16 touch /efs/touch/${directory}/{}/test.{1..64}
+....
+
+|32 a|
+....
+directory=$(echo $(uuidgen)\| grep -o ".\{6\}$")
+mkdir -p /efs/touch/${directory}/{1..32}
+time seq 1 32 \| parallel --will-cite -j 32 touch /efs/touch/${directory}/{}/test.{1..32}
+....
+
+|===
++
+. The following table and graph shows an example of the results you should expect.
++
+[cols="3,3,3",options="header"]
+|===
+|Threads |IOPS |Duration (seconds)
+
+|1
+a|86.6
+a|11.8
+
+|2
+a|184.1
+a|5.6
+
+|4
+a|367.7
+a|2.8
+
+|8
+a|634.4
+a|1.6
+
+|16
+a|820.5
+a|1.2
+
+|32
+a|1771.6
+a|0.6
+
+|===
++
+[.left]
+.IOPS and Duration
+image::iops-zero-byte-graph.png[450, scaledwidth="75%"]
+
+== Next section
+
+Click the link below to go to the next section.
+
+image::provisioned-throughput.png[link=../06-provisioned-throughput/, align="left",width=420]
+
+
+
+
