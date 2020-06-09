@@ -11,7 +11,7 @@ IMPORTANT: *_Click_* the link below that matches the type of workshop you starte
 
 [cols="1,1"]
 |===
-a|image::tear-down-od-workshop.png[link=../13-tear-down-od-workshop/]
-a|image::tear-down-as-workshop.png[link=../13-tear-down-as-workshop/]
+a|image::tear-down-od-workshop.png[link=../14-tear-down-od-workshop/]
+a|image::tear-down-as-workshop.png[link=../14-tear-down-as-workshop/]
 |===
 

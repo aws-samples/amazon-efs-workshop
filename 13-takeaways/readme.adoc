@@ -406,7 +406,7 @@ tree --du -hug /efs/touch3
 
 Click the link below to go to the next section.
 
-image::takeaways.png[link=../13-takeaways/, align="left",width=420]
+image::tear-down-workshop.png[link=../13-tear-down-workshop/, align="left",width=420]
 
 
 
