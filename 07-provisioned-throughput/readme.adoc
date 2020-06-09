@@ -73,7 +73,7 @@ sudo pkill -9 ior
 
 Click the link below to go to the next section.
 
-image::throughput-ior.png[link=../08-throughput-ior/, align="left",width=420]
+image::throughput-ior.png[link=../09-throughput-ior/, align="left",width=420]
 
 
 

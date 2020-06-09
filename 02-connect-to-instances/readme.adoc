@@ -48,7 +48,7 @@ NOTE: Throughput this workshop you will be asked to connect to *browserr-based S
 
 Click the link below to go to the next section.
 
-image::iops-zero-byte.png[link=../03-iops-zero-byte/, align="left",width=420]
+image::examine-efs-console.png[link=../03-examine-efs-console/, align="left",width=420]
 
 
 

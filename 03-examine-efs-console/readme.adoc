@@ -1,0 +1,86 @@
+= Examine Amazon EFS console
+:toc:
+:icons:
+:linkattrs:
+:imagesdir: ../resources/images
+
+
+== Summary
+
+This section will help you become more familiar with the Amazon EFS console.
+
+
+== Duration
+
+NOTE: It will take approximately 5 minutes to complete this section.
+
+
+== Step-by-step Guide
+
+=== Examine the Amazon EFS console
+
+IMPORTANT: Read through all steps below and watch the quick video before continuing.
+
+image::examine-fsx-console.gif[align="left", width=600]
+
+. *_Go_* to the link:https://console.aws.amazon.com/efs/[Amazon EFS] console.
+
+. *_Examine_* the *Summary* section of the file system from the main console. *_Find_* the values of the following file system attributes:
+* Name - this is a tag or key/value pair
+* File system ID
+* Metered size
+* Number of mount targets
+* Creation date
+
+. *_Move_* your cursor over the Metered size value to see when the metered size was last updated.
+* The computed metered size doesn't represent a consistent snapshot of the file system at any particular time during that hour. Instead, it represents the sizes of the objects that existed in the file system at varying times within each hour, or possibly the hour before it. These sizes are summed to determine the file system's metered size for the hour. The metered size of a file system is thus eventually consistent with the metered sizes of the objects stored when there are no writes to the file system.
+
+. *_Examine_* more details about the file system. *_Click_* the radio button next to the file system. *_Find_* the values of the following file system attributes:
+* Owner Id
+* File system state
+* Performance mode
+* Throughput mode
+* Encrypted
+* Lifecycle policy
+* Tags
+* DNS name
+
+. *_Examine_* the mount targets of the file system.
+* You mount your file system on an EC2 instance in your virtual private cloud (VPC) using a mount target that you create for the file system. Managing file system network accessibility refers to managing the mount targets.
+
+. *_Find_* the values of following mount target attributes:
+* VPC
+* Availability Zones
+* Subnets
+* IP addresses
+* Mount target IDs
+* Network interface IDs
+* Security groups
+* Mount target states
+
+. *_Examine_* the instructions to mount a file system from a local VPC. *_Click_* the *Amazon EC2 mount instructions (from local VPC)* link.
+
+. *_Examine_* the instructions to mount a file system from a remote VPCs. *_Click_* the *Amazon EC2 mount instructions (across VPC peering connection)* link.
+
+. *_Examine_* the instructions to mount a file system from on-premises. *_Click_* the *On-premises mount instructions* link.
+
+. *_Examine_* the *Tags* section of the console. *_Click_* the *Manage tags* link.
+* What tags (key/value) pairs are assigned to the file system?
+* Add a new tag (key/value) pair. *_Click_* the *[Add]* button and enter a *key* / *value* of your choice (e.g. Environment/Production). *_Click_* the *[Save]* button.
+
+. *_Examine_* how to add and remote mount targets. *_Click_* the *Manage network access* link.
+* Don't make any changes to the existing mount targets. *_Click_* Cancel.
+
+. *_Examine_* how to add file system policies and access points to control client access to the file system. *_Click_* the *Manage client access* link.
+* Don't make any changes. *_Click_* the browser's back button to return to the main Amazon EFS console.
+
+
+== Next section
+
+Click the link below to go to the next section.
+
+image::iops-zero-byte.png[link=../04-iops-zero-byte/, align="left",width=420]
+
+
+
+

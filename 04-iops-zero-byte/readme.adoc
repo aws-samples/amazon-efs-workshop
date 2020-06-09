@@ -233,7 +233,7 @@ image::iops-zero-byte-graph.png[450, scaledwidth="75%"]
 
 Click the link below to go to the next section.
 
-image::provisioned-throughput.png[link=../06-provisioned-throughput/, align="left",width=420]
+image::provisioned-throughput.png[link=../07-provisioned-throughput/, align="left",width=420]
 
 
 

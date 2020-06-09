@@ -551,5 +551,5 @@ image::ior-fpp-duration.png[align="left"]
 
 Click the link below to go to the next section.
 
-image::transfer-tools.png[link=../09-transfer-tools, align="left",width=420]
+image::transfer-tools.png[link=../10-transfer-tools, align="left",width=420]
 

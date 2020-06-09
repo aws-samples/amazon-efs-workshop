@@ -72,7 +72,7 @@ image::dashboard.png[450, scaledwidth="75%"]
 
 Click the link below to go to the next section.
 
-image::client-access.png[link=../11-client-access, align="left",width=420]
+image::client-access.png[link=../12-client-access, align="left",width=420]
 
 
 
