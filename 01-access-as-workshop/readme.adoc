@@ -7,11 +7,11 @@
 
 == Summary
 
-A new AWS environment will be pre-built and available to you for use during this workshop. See *environment diagram* below.
+A new AWS environment will be pre-built and available to you for use during this workshop. See *workshop diagram* below.
 
-== Environment Diagram
+== Workshop Diagram
 
-image::efs-workshop-architecture.png[align="left"]
+image::efs-workshop-architecture-v1.png[align="left"]
 
 == Step-by-step Guide
 
