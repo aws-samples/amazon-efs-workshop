@@ -12,7 +12,7 @@ There are two types of Amazon EFS workshops. **On-Demand workshops** are designe
 Click the link below to access the type of workshop you want to run.
 
 |===
-a|image::efs-od-workshop.png[link=01-create-od-workshop/] a| image::efs-as-workshop.png[link=01-access-as-workshop/]
+a|image::efs-od-workshop.png[link=01-deploy-od-workshop/] a| image::efs-as-workshop.png[link=01-access-as-workshop/]
 |===
 
 === Participation
